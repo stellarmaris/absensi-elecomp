@@ -10,22 +10,6 @@
   padding-left: 20px;
   border: 2px solid #130C90; 
 }
-.card-body{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-right: 10px;
-}
-
-.subtitle-card{
-  flex: 1;
-}
-
-.delete{
-  margin-left: 20px;
-  margin-bottom: 20px;
-}
-
 
 .box-container {
   display: flex;
@@ -126,75 +110,29 @@ tr:nth-child(even) {
 }
 
 .date-picker {
-  width: 125px;
+  width: 200px;
   height: 40px;
   padding-left: 10px;
-  border: 1px solid #130C90;
-  border-radius: 0 ;
-  font-size: 14px;
-}
-.d-flex input{
-  border: 1px solid #130C90;
 }
 
 .custom-btn {
-  width: 140px;
+  width: 150px;
   height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 15px;
   font-weight: bold;
   background-color: #130C90;
+  border-radius: 10px;
   color: white;
   text-decoration: none;
-  cursor: pointer;
-  border: 1px solid #130C90;
+  margin-top: 10px;
 }
 
 .custom-btn:hover {
   background-color: #0C074F;
 }
-
-.btn-delete {
-  padding: 8px 14px;
-  font-size: 14px;
-  font-weight: bold;
-  background-color: red;
-  border-radius: 10px;
-  color: white;
-  text-decoration: none;
-}
-.card-title{
-  margin-bottom: 0px;
-}
-
-.form-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
-
-.filter, .search-form {
-  flex: 1; /* Masing-masing menempati ruang yang sama */
-}
-
-.filter {
-  margin-right: 10px; /* Jarak antara filter dan search */
-}
-
-.search-form {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.d-flex{
-  display: flex;
-  align-items: center;
-}
-.d-flex .form-control {
-  margin-right: 0; 
-}
-
-
 
 @media (max-width: 768px) {
   .box-container {
@@ -214,21 +152,14 @@ tr:nth-child(even) {
     font-size: 80px;
   }
 
-  .form-container{
-    flex-direction: column;
-    align-items: stretch;
+  .custom-btn {
+    width: 100%;
+    font-size: 14px;
   }
 
-  .filter, .search-form {
-      width: 100%; /* Masing-masing menempati lebar penuh */
+  .date-picker {
+    width: 100%;
   }
-
-  .search-form {
-      margin-top: 10px; /* Tambahkan jarak antara filter dan search */
-      justify-content: flex-start;
-  }
- 
-  
 }
 
 @media (max-width: 480px) {
@@ -254,44 +185,9 @@ tr:nth-child(even) {
     height: 35px;
     font-size: 12px;
   }
-  .btn-search {
-    width: 100%;
-    height: 35px;
-    font-size: 12px;
-  }
-  .date-picker {
-    width: 100%;
-    height: 35px;
-    font-size: 12px;
-  }
 
   .btn-danger {
     padding: 8px 16px;
     font-size: 12px;
   }
-
-  .card-body {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .delete{
-    margin-left: 0;
-  }
-
-  
-}
-
-.alert-danger {
-  color: #721c24;
-  background-color: #f8d7da;
-  border-color: #f5c6cb;
-  margin-bottom: 12px;
-}
-
-.alert-success {
-  color: #155724;
-  background-color: #d4edda;
-  border-color: #c3e6cb;
-  margin-bottom: 12px;
-  padding: 4px;
 }

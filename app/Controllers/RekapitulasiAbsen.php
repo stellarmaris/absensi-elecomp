@@ -12,33 +12,30 @@ class RekapitulasiAbsen extends BaseController
             return redirect()->to('/login');
         }
     
-        $userId = session()->get('user_id');
         $modelPresensi = new presensiModel();
     
-        // Ambil nilai pencarian dari input search
+        // Ambil nilai pencarian dan tanggal dari input
         $search = $this->request->getGet('search');
         $tanggal = $this->request->getGet('tanggal');
-        $currentPage = $this->request->getGet('page') ?? 1;
-        $perPage = 5;
+        $perPage = 10; // Records per page
 
+        // Ambil data dengan pagination
         $builder = $modelPresensi->select('presensi.*, user.nama as Nama')
                                  ->join('user', 'user.id_magang = presensi.id_magang');
 
-        // Jika ada filter pencarian
         if ($search) {
             $builder->like('user.nama', $search);
         }
     
-        // Jika ada filter tanggal
         if ($tanggal) {
             $builder->where('presensi.tanggal', $tanggal);
         }
     
-        // Ambil data dengan pagination
+        // Pagination logic
         $data['data_presensi'] = $builder
             ->orderBy('tanggal', 'desc')
-            ->paginate($perPage, 'presensi', $currentPage);
-
+            ->paginate($perPage, 'presensi');
+        
         $data['pager'] = $modelPresensi->pager;
         $data['search'] = $search;
         $data['tanggal_pilih'] = $tanggal;
@@ -52,10 +49,9 @@ class RekapitulasiAbsen extends BaseController
         $tanggal = $this->request->getGet('tanggal');
         $modelPresensi = new presensiModel();
     
-        $currentPage = $this->request->getGet('page') ?? 1;
-        $perPage = 5;
+        $perPage = 5; // Records per page
 
-        // paginate sesuai tanggal
+        // Filter data sesuai tanggal
         $builder = $modelPresensi->select('presensi.*, user.nama as Nama')
                                  ->join('user', 'user.id_magang = presensi.id_magang');
     
@@ -63,11 +59,11 @@ class RekapitulasiAbsen extends BaseController
             $builder->where('tanggal', $tanggal);
         }
     
-        // Ambil data dengan pagination
+        // Pagination logic
         $data['data_presensi'] = $builder
             ->orderBy('tanggal', 'desc')
-            ->paginate($perPage, 'presensi', $currentPage);
-
+            ->paginate($perPage, 'presensi');
+        
         $data['pager'] = $modelPresensi->pager;
         $data['tanggal_pilih'] = $tanggal;
         $data['title'] = 'Rekapitulasi Absensi';
@@ -87,7 +83,6 @@ class RekapitulasiAbsen extends BaseController
     {
         $modelPresensi = new presensiModel();
 
-        // Dapatkan data presensi berdasarkan id
         $data['presensi'] = $modelPresensi
             ->select('presensi.*, user.nama as Nama')
             ->join('user', 'user.id_magang = presensi.id_magang')
