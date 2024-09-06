@@ -13,7 +13,6 @@
     </div>
 </div>
 
-
 <!-- container khusus untuk box -->
 <div class="box-container">
     <!-- kartu sakit, izin, hadir -->    
@@ -50,8 +49,6 @@
     </div>
 </div>
 
-
-
 <!-- Tabel data presensi -->
 <div class="table-responsive">
     <table class="table">
@@ -68,7 +65,7 @@
         <tbody>
         <?php if (empty($data_presensi)): ?>
             <tr>
-                <td colspan="8" style="text-align: center;">Data Tidak Ditemukan</td>
+                <td colspan="6" style="text-align: center;">Data Tidak Ditemukan</td>
             </tr>
         <?php else: ?>
             <?php
@@ -76,13 +73,21 @@
             $nomor = 0;
             foreach ($data_presensi as $k => $v) {
                 $nomor++;
+                // Ubah warna sesuai kondisi
+                if (!empty($v['jam_keluar']) && ($v['status'] == 'WFO' || $v['status'] == 'WFH')) {
+                    $rowClass = 'row-blue'; 
+                } elseif ($v['status'] == 'Sakit' || $v['status'] == 'Izin') {
+                    $rowClass = 'row-yellow';
+                } else {
+                    $rowClass = ''; 
+                }
             ?>
-            <tr>
+            <tr class="<?= $rowClass ?>">
                 <td><?php echo $nomor ?></td>
                 <td><?php echo $v['tanggal'] ?></td>
                 <td><?php echo $v['Nama'] ?></td>
                 <td><?php echo $v['jam_masuk'] ?></td>
-                <td><?php echo $v['jam_keluar']?></td>
+                <td><?php echo $v['jam_keluar'] ?></td>
                 <td><?php echo $v['status']; ?></td>
             </tr>
             <?php }?>
@@ -91,12 +96,11 @@
     </table>
 </div>
 
-    <!-- Pagination Links -->
-    <?php if ($pager): ?>
-        <div class="pagination">
-            <?= $pager->links('presensi', 'custom') ?>
-
-        </div>
-    <?php endif; ?>
+<!-- Pagination Links -->
+<?php if ($pager): ?>
+    <div class="pagination">
+        <?= $pager->links('presensi', 'custom') ?>
+    </div>
+<?php endif; ?>
 
 <?= $this->endSection() ?>
