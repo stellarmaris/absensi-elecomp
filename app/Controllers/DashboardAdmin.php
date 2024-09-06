@@ -19,7 +19,7 @@ class dashboardadmin extends BaseController
 
         // Dapatkan tanggal hari ini
         $tanggalHariIni = date('Y-m-d');
-        $perPage = 5; // Users per page
+        $perPage = 10; // Users per page
 
         $data['data_presensi'] = $ModelPresensi
             ->select('presensi.*, user.nama as Nama')
