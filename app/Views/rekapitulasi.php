@@ -1,6 +1,7 @@
 <?= $this->extend('/Layouts/admin_layout') ?>
 <?= $this->section('customStyles') ?>
 <link rel="stylesheet" href="/css/dashboardadmin.css">
+<link rel="stylesheet" href="/css/pagination.css">
 <style>
      .btn-search {
         padding: 10px 15px;
@@ -57,7 +58,7 @@
 <div class="row mb-2 form-container">
     <div class="filter">
         <form action="<?= site_url('/RekapitulasiAbsen') ?>" method="get" class="d-flex" >
-            <input type="date" id="date" name="tanggal" class="form-control date-picker" value="<?= isset($tanggal_pilih) ? $tanggal_pilih : $tanggal_hari_ini ?>">
+            <input type="date" id="date" name="tanggal" class="form-control date-picker" value="<?= isset($tanggal_pilih) ? $tanggal_pilih : $tanggal_pilih ?>">
             <button type="submit" class="btn custom-btn">Tampilkan Data</button>
         </form>
     </div>
@@ -91,11 +92,14 @@
                 </tr>
             <?php else: ?>
                 <?php
-                $nomor = ($currentPage - 1) * $perPage + 1;
-                foreach ($data_presensi as $v): ?>
+                    // Nomor urut
+                    $nomor = 0;
+                    foreach ($data_presensi as $k => $v) {
+                        $nomor++;
+                    ?>
                     <tr>
-                        <td><?= $nomor++ ?></td>
-                        <td><?= $v['tanggal'] ?></td>
+                        <td><?php echo $nomor ?></td>
+                        <td><?php echo $v['tanggal'] ?></td>
                         <td><?= $v['Nama'] ?></td>
                         <td><?= $v['jam_masuk'] ?></td>
                         <td><?= $v['jam_keluar'] ?></td>
@@ -104,30 +108,19 @@
                             <a href="<?= site_url('RekapitulasiAbsen/detail/' . $v['id_presensi']); ?>" class="btn btn-danger">Detail</a>
                         </td>
                     </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
+                    <?php }?>
+                <?php endif; ?>
         </tbody>
     </table>
 </div>
 
-<!-- Pagination -->
-<div class="row">
-    <div class="col-12 col-md-6">
+    <!-- Pagination Links -->
+    <?php if ($pager): ?>
         <div class="pagination">
-            <?php if ($currentPage > 1): ?>
-                <a href="<?= site_url('RekapitulasiAbsen?page=' . ($currentPage - 1) . '&search=' . $search . '&tanggal=' . $tanggal_pilih) ?>">Sebelumnya</a>
-            <?php endif; ?>
+            <?= $pager->links('presensi', 'custom') ?>
 
-            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <a href="<?= site_url('RekapitulasiAbsen?page=' . $i . '&search=' . $search . '&tanggal=' . $tanggal_pilih) ?>" class="<?= $i == $currentPage ? 'active' : '' ?>"><?= $i ?></a>
-            <?php endfor; ?>
-
-            <?php if ($currentPage < $totalPages): ?>
-                <a href="<?= site_url('RekapitulasiAbsen?page=' . ($currentPage + 1) . '&search=' . $search . '&tanggal=' . $tanggal_pilih) ?>">Selanjutnya</a>
-            <?php endif; ?>
         </div>
-    </div>
-</div>
+    <?php endif; ?>
 
 
 <?= $this->endSection() ?>

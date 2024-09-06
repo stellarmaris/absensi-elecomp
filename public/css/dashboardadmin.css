@@ -153,38 +153,6 @@ tr:nth-child(even) {
   background-color: #0C074F;
 }
 
-.pagination{
-  display:flex;
-  justify-content: right;
-  list-style-type: none;
-}
-.page-item {
-  margin: 0 2px; /* Menambahkan jarak antar item */
-  margin-top: 12px;
-  list-style-type: none;
-}
-
-.page-link {
-display: block;
-color: #130C90; /* Mengubah warna teks */
-padding: 8px 18px;
-border: 1px solid #130C90; /* Menambahkan border */
-border-radius: 4px;
-text-decoration: none;
-}
-
-.page-link:hover {
-  background-color: rgba(19, 12, 144, 0.04);; 
-  color: #130C90; 
-  border-color: #130C90; 
-}
-
-.page-item.active .page-link {
-  background-color: #130C90;; 
-  color: white; 
-  border-color: #130C90;; 
-}
-
 .btn-delete {
   padding: 8px 14px;
   font-size: 14px;
