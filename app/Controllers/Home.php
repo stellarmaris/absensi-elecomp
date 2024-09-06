@@ -32,7 +32,8 @@ class Home extends BaseController
         $hasPresensi = $presensi ? true : false;
         $hasCheckedOut = $presensi && $presensi['jam_keluar'] ? true : false;
         $hasCheckedin = $presensi && $presensi['jam_masuk'] ? true : false;
-        $isIzin = $presensi && $presensi['status'] !== 'Hadir' ? true : false;
+        $isHadir = $presensi && ($presensi['status'] === 'WFO' || $presensi['status'] === 'WFH') ? true : false;
+        $isPending = $presensi && $presensi['verifikasi'] === 'Pending';
 
         // Data array yang akan dikirim ke view
         $data = [
@@ -40,7 +41,8 @@ class Home extends BaseController
             'hasPresensi' => $hasPresensi, // Cek apakah ada data presensi
             'hasCheckedOut' => $hasCheckedOut, // Cek apakah sudah check-out
             'hasCheckedin' =>$hasCheckedin,
-            'isIzin' => $isIzin, // Cek apakah status izin
+            'isHadir' => $isHadir, // Cek apakah status izin
+            'isPending'=>$isPending,
         ];
         $data['title'] = 'Dashboard';
         return view('dashboarduser', $data);

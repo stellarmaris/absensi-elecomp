@@ -37,6 +37,7 @@
         <div class="form-1">
             <div class="label"><label class="form-label">Progress:</label><div>
             <div class="input"><textarea rows="5" class="form-control" name="Progress" placeholder="Masukkan progress anda hari ini.." required ><?= set_value('Progress') ?></textarea></div>
+            <p style="color: red;margin-top:2px"><em> *Catt: Pastikan kamu menuliskan progress dengan rinci</em></p>
         </div>
         <div class="form-1" >
             <label class="form-label">Lokasi:</label>

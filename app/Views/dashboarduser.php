@@ -40,8 +40,17 @@
             <h1 class="card-title bold-text">CHECK - OUT</h1>
             <p class="card-text bold-text">Gunakan tombol "Check Out" untuk mencatat kehadiran Anda dengan tepat.</p>
         </div>
-        <a href="/checkout" class="btn btn-primary custom-btn <?= $hasCheckedin && !$hasCheckedOut && !$isIzin ? '' : 'disabled-link' ?>">CHECK - OUT</a>
-       
+        <a href="/checkout" class="btn btn-primary custom-btn <?= $hasCheckedin && !$hasCheckedOut && $isHadir ? '' : 'disabled-link' ?>" id="btn-checkout">CHECK - OUT</a>
+        <script>
+            document.getElementById('btn-checkout').addEventListener('click',function(event){
+                var isPending = <?= json_encode($isPending)?>;
+
+                if(isPending){
+                    event.preventDefault();
+                    alert('Statusmu masih pending, kamu tidak bisa melakukan check-out. Silahkan hubungi admin untuk verifikasi statusmu');
+                }
+            });
+        </script>
       
     </div>
 </div>
@@ -56,4 +65,6 @@
         </div>
     </div>
 </div>
+
+
 <?= $this->endSection() ?>
