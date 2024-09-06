@@ -27,59 +27,6 @@
   }
   
   
-  .box-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-    gap: 30px;
-    flex-wrap: wrap;
-  }
-  
-  .box {
-    border-radius: 10px;
-    height: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 40px;
-    width: 200px;
-  }
-  
-  .box1 {
-    background-color: #B1DFE6; 
-  }
-  
-  .box2 {
-    background-color: #8BCFF1; 
-  }
-  
-  .box3 {
-    background-color: #5087F7; 
-  }
-  
-  .box4 {
-    background-color: #406BC4;
-  }
-  
-  .box5 {
-    background-color: #3057A5; /* Warna lebih gelap dari #406BC4 */
-  }
-  
-  
-  .box p {
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 0px; 
-  }
-  
-  .box h1 {
-    font-size: 100px;
-    font-weight: bold;
-    font-style: italic;
-    margin: 0px; 
-  }
-  
   .btn-danger {
     background-color:  #130C90; 
     color: white; 
@@ -120,10 +67,29 @@
     color: white;
     text-align: center;
   }
-  
-  tr:nth-child(even) {
-    background-color: #fff;
-  }
+
+  /* Add this to your existing CSS or inside a <style> tag */
+
+.bg-wfo {
+  background-color: #a5d6a7; /* Light Green for WFO */
+}
+
+.bg-wfh {
+  background-color: rgba(21, 101, 192, 0.1); 
+}
+
+.bg-izin {
+  background-color: rgba(255, 235, 59, 0.3); 
+}
+
+.bg-sakit {
+  background-color: #ffccbc;/* Light Orange for Sakit */
+}
+
+.bg-alpha {
+  background-color: #ef9a9a; /* Light Red for Alpha */
+}
+
   
   .date-picker {
     width: 125px;

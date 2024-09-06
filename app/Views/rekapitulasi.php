@@ -88,7 +88,7 @@
         <tbody>
             <?php if (empty($data_presensi)): ?>
                 <tr>
-                    <td colspan="8" style="text-align: center;">Data Tidak Ditemukan</td>
+                    <td colspan="7" style="text-align: center;">Data Tidak Ditemukan</td>
                 </tr>
             <?php else: ?>
                 <?php
@@ -96,21 +96,41 @@
                     $nomor = 0;
                     foreach ($data_presensi as $k => $v) {
                         $nomor++;
-                    ?>
-                    <tr>
-                        <td><?php echo $nomor ?></td>
-                        <td><?php echo $v['tanggal'] ?></td>
-                        <td><?= $v['Nama'] ?></td>
-                        <td><?= $v['jam_masuk'] ?></td>
-                        <td><?= $v['jam_keluar'] ?></td>
-                        <td><?= $v['status'] ?></td>
-                        <td>
-                            <a href="<?= site_url('RekapitulasiAbsen/detail/' . $v['id_presensi']); ?>" class="btn btn-danger">Detail</a>
-                        </td>
-                    </tr>
-                    <?php }?>
-                <?php endif; ?>
+                        // Determine the row class based on the status
+                        $rowClass = '';
+                        switch ($v['status']) {
+                            case 'WFO':
+                                $rowClass = 'bg-wfo';
+                                break;
+                            case 'WFH':
+                                $rowClass = 'bg-wfh';
+                                break;
+                            case 'Izin':
+                                $rowClass = 'bg-izin';
+                                break;
+                            case 'Sakit':
+                                $rowClass = 'bg-sakit';
+                                break;
+                            case 'Alpha':
+                                $rowClass = 'bg-alpha';
+                                break;
+                        }
+                ?>
+                <tr class="<?= $rowClass ?>">
+                    <td><?php echo $nomor ?></td>
+                    <td><?php echo $v['tanggal'] ?></td>
+                    <td><?= $v['Nama'] ?></td>
+                    <td><?= $v['jam_masuk'] ?></td>
+                    <td><?= $v['jam_keluar'] ?></td>
+                    <td><?= $v['status'] ?></td>
+                    <td>
+                        <a href="<?= site_url('RekapitulasiAbsen/detail/' . $v['id_presensi']); ?>" class="btn btn-danger">Detail</a>
+                    </td>
+                </tr>
+                <?php }?>
+            <?php endif; ?>
         </tbody>
+
     </table>
 </div>
 
