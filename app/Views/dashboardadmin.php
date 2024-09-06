@@ -13,6 +13,7 @@
     </div>
 </div>
 
+
 <!-- container khusus untuk box -->
 <div class="box-container">
     <!-- kartu sakit, izin, hadir -->    
@@ -28,13 +29,13 @@
         <p>IZIN</p>
         <h1><?= $total_izin ?></h1>
     </div>
-</div>
-
-<div class="box-container">
     <div class="box box4">
         <p>TOTAL</p>
         <h1><?= $total_rekap ?></h1>
     </div>
+</div>
+
+<div class="box-container">
     <div class="box box5">
         <p>PENGGUNA</p>
         <h1><?= $total_user ?></h1>

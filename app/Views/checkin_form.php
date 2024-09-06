@@ -64,16 +64,28 @@
     </div>
 <?php endif; ?>
 <div class="alert-custom">
-    <h4 class="alert-heading">Ketentuan Foto</h4>
-    <p>Pastikan foto check-in Anda memenuhi kriteria berikut:</p>
+    <h4 class="alert-heading">Ketentuan Umum Check-In (WFH dan WFO)</h4>
+    <p>Pastikan check-in Anda memenuhi kriteria berikut:</p>
+
+    <strong>Untuk WFH (Work From Home):</strong>
+    <ul>
+        <li>Sudah mendapatkan izin WFH dari atasan melalui grup.</li>
+        <li>Foto harus menyertakan watermark.</li>
+        <li>Foto bukti harus relevan dengan alasan WFH (misalnya foto bersama dosen atau foto dengan kegiatan).</li>
+    </ul>
+
+    <strong>Untuk WFO (Work From Office) dan WFH:</strong>
     <ul>
         <li>Foto harus diambil dalam mode potret.</li>
         <li>Foto harus berupa selfie muka diri sendiri.</li>
         <li>Foto harus menyertakan watermark (jika ada).</li>
+        <li>Pastikan lokasi Anda sudah sesuai.</li>
     </ul>
+
     <hr>
-    <p class="mb-0">Pastikan untuk mengikuti panduan ini agar check-in Anda berhasil.</p>
+    <p class="mb-0">Pastikan untuk mengikuti panduan ini agar check-in Anda berhasil. Jika tidak sesuai ketentuan, check-in Anda tidak akan diverifikasi.</p>
 </div>
+
 
 <form action="/check-in-form" method="POST" enctype="multipart/form-data">
     <div class="group">
