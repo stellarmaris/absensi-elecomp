@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\presensiModel;
+use App\Models\UserModel;
 
 class RekapitulasiAbsen extends BaseController
 {
@@ -21,7 +22,7 @@ class RekapitulasiAbsen extends BaseController
 
         // Ambil data dengan pagination
         $builder = $modelPresensi->select('presensi.*, user.nama as Nama')
-                                 ->join('user', 'user.id_magang = presensi.id_magang');
+            ->join('user', 'user.id_magang = presensi.id_magang');
 
         if ($search) {
             $builder->like('user.nama', $search);
@@ -40,7 +41,7 @@ class RekapitulasiAbsen extends BaseController
         $data['search'] = $search;
         $data['tanggal_pilih'] = $tanggal;
         $data['title'] = 'Rekapitulasi Absensi';
-    
+
         return view('rekapitulasi', $data);
     }
 
@@ -53,8 +54,8 @@ class RekapitulasiAbsen extends BaseController
 
         // Filter data sesuai tanggal
         $builder = $modelPresensi->select('presensi.*, user.nama as Nama')
-                                 ->join('user', 'user.id_magang = presensi.id_magang');
-    
+            ->join('user', 'user.id_magang = presensi.id_magang');
+
         if ($tanggal) {
             $builder->where('tanggal', $tanggal);
         }
@@ -67,7 +68,7 @@ class RekapitulasiAbsen extends BaseController
         $data['pager'] = $modelPresensi->pager;
         $data['tanggal_pilih'] = $tanggal;
         $data['title'] = 'Rekapitulasi Absensi';
-    
+
         return view('rekapitulasi', $data);
     }
 
@@ -75,7 +76,7 @@ class RekapitulasiAbsen extends BaseController
     {
         $modelPresensi = new presensiModel();
         $modelPresensi->delete($id_presensi);
-        
+
         return redirect()->to(site_url('rekapitulasi'))->with('success', 'Data berhasil dihapus.');
     }
 

@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="/css/rekapitulasi.css">
 <link rel="stylesheet" href="/css/pagination.css">
 <style>
-     .btn-search {
+    .btn-search {
         padding: 10px 15px;
         background-color: #130C90;
         color: white;
@@ -24,32 +24,36 @@
 <?= $this->section('content') ?>
 <!-- ================= ALERT ============= -->
 <?php if (session()->getFlashdata('message')): ?>
-        <div class="alert alert-success">
-            <?= session()->getFlashdata('message') ?>
-        </div>
-    <?php endif; ?>
+    <div class="alert alert-success">
+        <?= session()->getFlashdata('message') ?>
+    </div>
+<?php endif; ?>
 
-    <?php if (session()->getFlashdata('error')): ?>
-        <div class="alert alert-danger">
-            <?= session()->getFlashdata('error') ?>
-        </div>
-    <?php endif; ?>
+<?php if (session()->getFlashdata('error')): ?>
+    <div class="alert alert-danger">
+        <?= session()->getFlashdata('error') ?>
+    </div>
+<?php endif; ?>
 
 <!-- kartu judul -->
 
 <!-- kartu judul2 -->
 <div class="card title-card">
-        <h3 class="card-title bold-text">Rekapitulasi Absensi</h3>
-        <div class="card-body">
-            <p class="subtitle-card"><em>Total Rekapitulasi</em></p>
-            <div class="delete">
-                    <form action="<?= site_url('/deleteFoto') ?>" method="post">
-                        <?= csrf_field() ?>
-                        <button type="submit" class="btn btn-delete" onclick="return confirm('Apakah Anda yakin ingin menghapus semua foto minggu lalu?')">Hapus Foto</button>
-                    </form>
-            </div>
+    <h3 class="card-title bold-text">Rekapitulasi Absensi</h3>
+    <div class="card-body">
+        <p class="subtitle-card"><em>Total Rekapitulasi</em></p>
+        <div class="delete">
+            <form action="<?= site_url('/deleteFoto') ?>" method="post">
+                <?= csrf_field() ?>
+                <button type="submit" class="btn btn-delete" onclick="return confirm('Apakah Anda yakin ingin menghapus semua foto minggu lalu?')">Hapus Foto</button>
+            </form>
+            <form action="<?= site_url('/markAlpha') ?>" method="post">
+                <?= csrf_field() ?>
+                <button type="submit" class="btn btn-alpha" onclick="return confirm('Apakah Anda yakin ingin menghapus semua foto minggu lalu?')">Alpha User</button>
+            </form>
         </div>
-    
+    </div>
+
 </div>
 
 <!--Form filter tanggal -->
@@ -57,13 +61,13 @@
 
 <div class="row mb-2 form-container">
     <div class="filter">
-        <form action="<?= site_url('/RekapitulasiAbsen') ?>" method="get" class="d-flex" >
+        <form action="<?= site_url('/RekapitulasiAbsen') ?>" method="get" class="d-flex">
             <input type="date" id="date" name="tanggal" class="form-control date-picker" value="<?= isset($tanggal_pilih) ? $tanggal_pilih : $tanggal_pilih ?>">
             <button type="submit" class="btn custom-btn">Tampilkan Data</button>
         </form>
     </div>
     <div class="search-form">
-        <form action="<?= site_url('/RekapitulasiAbsen') ?>" method="get" class="d-flex" >
+        <form action="<?= site_url('/RekapitulasiAbsen') ?>" method="get" class="d-flex">
             <input type="text" name="search" id="search" class="form-control" placeholder="Cari Nama ....." value="<?= isset($search) ? $search : '' ?>">
             <button type="submit" class="btn-search">Search</button>
         </form>
@@ -134,13 +138,13 @@
     </table>
 </div>
 
-    <!-- Pagination Links -->
-    <?php if ($pager): ?>
-        <div class="pagination">
-            <?= $pager->links('presensi', 'custom') ?>
+<!-- Pagination Links -->
+<?php if ($pager): ?>
+    <div class="pagination">
+        <?= $pager->links('presensi', 'custom') ?>
 
-        </div>
-    <?php endif; ?>
+    </div>
+<?php endif; ?>
 
 
 <?= $this->endSection() ?>

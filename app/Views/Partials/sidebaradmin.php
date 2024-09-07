@@ -12,6 +12,9 @@
         </li>
         <li class="nav-item">
             <span class="nav-header">APPS</span>
+            <a href="/summary-presensi" class="nav-link">
+                <i class="fa-solid fa-chart-pie"></i> Summary Absensi
+            </a>
             <a href="/VerifyUser" class="nav-link">
                 <i class="fa-solid fa-check"></i> Verifikasi Absensi
             </a>

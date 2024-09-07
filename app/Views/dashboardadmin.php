@@ -2,6 +2,20 @@
 <?= $this->section('customStyles') ?>
 <link rel="stylesheet" href="/css/dashboardadmin.css">
 <link rel="stylesheet" href="/css/pagination.css">
+<style>
+    .btn-alpha {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        background-color: red;
+        color: white;
+        width: 100px;
+        height: 40px;
+
+    }
+
+    button {}
+</style>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -13,9 +27,10 @@
     </div>
 </div>
 
+
 <!-- container khusus untuk box -->
 <div class="box-container">
-    <!-- kartu sakit, izin, hadir -->    
+    <!-- kartu sakit, izin, hadir -->
     <div class="box box1">
         <p>HADIR</p>
         <h1><?= $total_hadir ?></h1>
@@ -42,12 +57,17 @@
 </div>
 
 <!-- kartu judul2 -->
-<div class="card title-card">
+<div class="card title-card" style="display:flex; justify-content:space-between; align-items:center;">
     <div class="card-body">
         <h3 class="card-title bold-text">Data Absensi</h3>
         <p><em><?= $tanggal_hari_ini ?></em></p>
     </div>
+
 </div>
+<form action="<?= site_url('/markAlpha') ?>" method="post" style="display:flex; justify-content:end;">
+    <?= csrf_field() ?>
+    <button type="submit" class="btn btn-alpha" onclick="return confirm('Apakah Anda yakin melakukan alpha pada user ?')">Alpha User</button>
+</form>
 
 <!-- Tabel data presensi -->
 <div class="table-responsive">
@@ -63,35 +83,35 @@
             </tr>
         </thead>
         <tbody>
-        <?php if (empty($data_presensi)): ?>
-            <tr>
-                <td colspan="6" style="text-align: center;">Data Tidak Ditemukan</td>
-            </tr>
-        <?php else: ?>
-            <?php
-            // Nomor urut
-            $nomor = 0;
-            foreach ($data_presensi as $k => $v) {
-                $nomor++;
-                // Ubah warna sesuai kondisi
-                if (!empty($v['jam_keluar']) && ($v['status'] == 'WFO' || $v['status'] == 'WFH')) {
-                    $rowClass = 'row-blue'; 
-                } elseif ($v['status'] == 'Sakit' || $v['status'] == 'Izin') {
-                    $rowClass = 'row-yellow';
-                } else {
-                    $rowClass = ''; 
-                }
-            ?>
-            <tr class="<?= $rowClass ?>">
-                <td><?php echo $nomor ?></td>
-                <td><?php echo $v['tanggal'] ?></td>
-                <td><?php echo $v['Nama'] ?></td>
-                <td><?php echo $v['jam_masuk'] ?></td>
-                <td><?php echo $v['jam_keluar'] ?></td>
-                <td><?php echo $v['status']; ?></td>
-            </tr>
-            <?php }?>
-        <?php endif; ?>
+            <?php if (empty($data_presensi)): ?>
+                <tr>
+                    <td colspan="6" style="text-align: center;">Data Tidak Ditemukan</td>
+                </tr>
+            <?php else: ?>
+                <?php
+                // Nomor urut
+                $nomor = 0;
+                foreach ($data_presensi as $k => $v) {
+                    $nomor++;
+                    // Ubah warna sesuai kondisi
+                    if (!empty($v['jam_keluar']) && ($v['status'] == 'WFO' || $v['status'] == 'WFH')) {
+                        $rowClass = 'row-blue';
+                    } elseif ($v['status'] == 'Sakit' || $v['status'] == 'Izin') {
+                        $rowClass = 'row-yellow';
+                    } else {
+                        $rowClass = '';
+                    }
+                ?>
+                    <tr class="<?= $rowClass ?>">
+                        <td><?php echo $nomor ?></td>
+                        <td><?php echo $v['tanggal'] ?></td>
+                        <td><?php echo $v['Nama'] ?></td>
+                        <td><?php echo $v['jam_masuk'] ?></td>
+                        <td><?php echo $v['jam_keluar'] ?></td>
+                        <td><?php echo $v['status']; ?></td>
+                    </tr>
+                <?php } ?>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>
