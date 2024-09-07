@@ -26,28 +26,30 @@
         </div>
     </div>
 
-    <h5>Chart Presensi Per Tahun</h5>
-    <!-- Filter form -->
-    <div class="filter">
-        <form action="<?= site_url('/SummaryPresensiController/filter') ?>" method="get" class="d-flex">
-            <select id="year" name="tahun" class="form-control custom">
-                <option value="">Pilih Tahun</option>
-                <?php
-                $currentYear = date('Y');
-                for ($i = $currentYear; $i >= $currentYear - 5; $i--) {
-                    $selected = (isset($tahunDipilih) && $tahunDipilih == $i) ? 'selected' : '';
-                    echo "<option value=\"$i\" $selected>$i</option>";
-                }
-                ?>
-            </select>
-            <button type="submit" class="btn custom-btn">Tampilkan Data</button>
-        </form>
+    <div class="kartu2">
+        <h5>Chart Presensi Per Tahun</h5>
+        <!-- Filter form -->
+        <div class="filter">
+            <form action="<?= site_url('/SummaryPresensiController/filter') ?>" method="get" class="d-flex">
+                <select id="year" name="tahun" class="form-control custom">
+                    <option value="">Pilih Tahun</option>
+                    <?php
+                    $currentYear = date('Y');
+                    for ($i = $currentYear; $i >= $currentYear - 5; $i--) {
+                        $selected = (isset($tahunDipilih) && $tahunDipilih == $i) ? 'selected' : '';
+                        echo "<option value=\"$i\" $selected>$i</option>";
+                    }
+                    ?>
+                </select>
+                <button type="submit" class="btn custom-btn">Tampilkan Data</button>
+            </form>
 
-    </div>
+        </div>
 
-    <!-- Chart per tahun -->
-    <div class="chart-container">
-        <canvas id="presensiChart"></canvas>
+        <!-- Chart per tahun -->
+        <div class="chart-container">
+            <canvas id="presensiChart"></canvas>
+        </div>
     </div>
 </div>
 
