@@ -12,20 +12,17 @@
         </li>
         <li class="nav-item">
             <span class="nav-header">APPS</span>
-            <a href="/summary-presensi" class="nav-link">
-                <i class="fa-solid fa-chart-pie"></i> Summary Absensi
-            </a>
             <a href="/VerifyUser" class="nav-link">
                 <i class="fa-solid fa-check"></i> Verifikasi Absensi
             </a>
             <a href="/lokasiSemua" class="nav-link">
                 <i class="fa-solid fa-location-dot"></i> Lokasi Pengguna
             </a>
-            <a href="/GrafikController" class="nav-link">
-                <i class="fa-solid fa-chart-area"></i> Grafik Absensi
-            </a>
             <a href="/RekapitulasiAbsen" class="nav-link">
                 <i class="fa-solid fa-file-alt"></i> Rekapitulasi Absensi
+            </a>
+            <a href="/summary-presensi" class="nav-link">
+                <i class="fa-solid fa-chart-area"></i> Statistik Absensi
             </a>
             <a href="/user-list" class="nav-link">
                 <i class="fa-solid fa-user-group"></i> Daftar Pengguna
