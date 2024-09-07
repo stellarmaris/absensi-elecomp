@@ -61,59 +61,59 @@ th {
   width: 100px; 
 }
 
-/* WFO - Hijau Tua */
+
 .btn-wfo {
-  background-color: #2E7D32; 
+  background-color: #66BB6A; 
   color: white;
   border: none;
 }
 
 .btn-wfo:hover {
-  background-color: #256628;
+  background-color: #4CAF50; 
 }
 
-/* WFH - Biru Tua */
+
 .btn-wfh {
-  background-color: #1565C0; 
+  background-color: #42A5F5;
   color: white;
   border: none;
 }
 
 .btn-wfh:hover {
-  background-color: #0D47A1; 
+  background-color: #1E88E5; 
 }
 
-/* Izin - Kuning Tua */
+
 .btn-izin {
-  background-color: #FF8F00;
+  background-color: #FFCA28;
   color: white;
   border: none;
 }
 
 .btn-izin:hover {
-  background-color: #FF6F00; 
+  background-color: #FFC107; 
 }
 
-/* Sakit - Oranye Tua */
+
 .btn-sakit {
-  background-color: #D84315; 
+  background-color: #FF8A65;
   color: white;
   border: none;
 }
 
 .btn-sakit:hover {
-  background-color: #BF360C; 
+  background-color: #FF7043; 
 }
 
-/* Alpha - Merah Tua */
+
 .btn-alpha {
-  background-color: #C62828; 
+  background-color: #EF5350;
   color: white;
   border: none;
 }
 
 .btn-alpha:hover {
-  background-color: #B71C1C; 
+  background-color: #E53935;
 }
 
 

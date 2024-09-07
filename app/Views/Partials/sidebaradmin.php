@@ -21,6 +21,9 @@
             <a href="/lokasiSemua" class="nav-link">
                 <i class="fa-solid fa-location-dot"></i> Lokasi Pengguna
             </a>
+            <a href="/GrafikController" class="nav-link">
+                <i class="fa-solid fa-chart-area"></i> Grafik Absensi
+            </a>
             <a href="/RekapitulasiAbsen" class="nav-link">
                 <i class="fa-solid fa-file-alt"></i> Rekapitulasi Absensi
             </a>
