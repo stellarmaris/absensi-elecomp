@@ -47,10 +47,6 @@
                 <?= csrf_field() ?>
                 <button type="submit" class="btn btn-delete" onclick="return confirm('Apakah Anda yakin ingin menghapus semua foto minggu lalu?')">Hapus Foto</button>
             </form>
-            <form action="<?= site_url('/markAlpha') ?>" method="post">
-                <?= csrf_field() ?>
-                <button type="submit" class="btn btn-alpha" onclick="return confirm('Apakah Anda yakin ingin menghapus semua foto minggu lalu?')">Alpha User</button>
-            </form>
         </div>
     </div>
 

@@ -3,17 +3,34 @@
 <link rel="stylesheet" href="/css/dashboardadmin.css">
 <link rel="stylesheet" href="/css/pagination.css">
 <style>
-    .btn-alpha {
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        background-color: red;
-        color: white;
-        width: 100px;
-        height: 40px;
-    }
+.chart-container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
 
-    button {}
+.kartu{
+    width: 40%;
+    margin: 8px;
+    padding:15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+}
+.kartu3{
+    width: 100%;
+    margin: 8px;
+    padding:15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+@media (max-width: 768px) {
+      .kartu {
+        width: 100%; /* Lebar penuh pada layar kecil */
+      }
+    }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <?= $this->endSection() ?>
@@ -27,7 +44,21 @@
 </div>
 
 
-<canvas id="myPieChart" width="100" height="100" style="max-width: 300px; max-height:300px;"></canvas>
+<div class="chart-container">
+    <div class="kartu">
+        <h5>Data Presensi Per Hari</h5>
+        <canvas id="myPieChart"></canvas>
+    </div>
+    <div class="kartu">
+        <h5> Data Presensi Per Bulan</h5>
+        <canvas id="chart2"></canvas>
+    </div>
+    
+</div>
+<div class="kartu3">
+        <h5>Data Presensi Per Tahun</h5>
+        <canvas id="chart3" ></canvas>
+    </div>
 
 <script>
     // Ambil elemen canvas
@@ -35,7 +66,7 @@
 
     // Data untuk Pie Chart, ambil dari PHP
     const data = {
-        labels: ['Alpha', 'Sakit', 'Ijin', 'WFO', 'WFH'],
+        labels: ['WFO','WFH','Sakit','Izin', 'Alpha'],
         datasets: [{
             label: 'Presensi Status',
             data: [
@@ -45,21 +76,8 @@
                 <?= $wfoCount ?>,
                 <?= $wfhCount ?>
             ],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.7)', // Alpha
-                'rgba(54, 162, 235, 0.7)', // Sakit
-                'rgba(255, 206, 86, 0.7)', // Ijin
-                'rgba(75, 192, 192, 0.7)', // WFO
-                'rgba(153, 102, 255, 0.7)' // WFH
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)'
-            ],
-            borderWidth: 1
+            backgroundColor: ['#66BB6A', '#42A5F5', '#FFCA28', '#FF8A65', '#EF5350'],
+        
         }]
     };
 
@@ -82,6 +100,44 @@
         data: data,
         options: options
     });
+
 </script>
+
+<script>
+        var ctx3 = document.getElementById('chart2').getContext('2d');
+        var chart2 = new Chart(ctx3, {
+        type: 'pie',
+        data: {
+            labels: [ 'WFO','WFH','Sakit','Izin', 'Alpha'],
+            datasets: [{
+            data: [
+                <?= $persen_sakit ?? 0 ?>,
+                <?= $persen_alpha ?? 0 ?>,
+                <?= $persen_wfo ?? 0 ?>,
+                <?= $persen_izin ?? 0 ?>,
+                <?= $persen_wfh ?? 0 ?>
+            ],
+            backgroundColor:['#66BB6A', '#42A5F5', '#FFCA28', '#FF8A65', '#EF5350'],
+            hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+            legend: {
+                position: 'top',
+            },
+            tooltip: {
+                enabled: true,
+            }
+            }
+        }
+        });
+
+        
+    
+    </script>
+
+    
 
 <?= $this->endSection() ?>

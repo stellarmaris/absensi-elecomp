@@ -111,4 +111,15 @@
             background-color: #0e086e;
         }
      
+        @media (max-width: 768px) {
+            .page-link {
+                display: block;
+                color: #130C90; /* Mengubah warna teks */
+                padding: 4px 10px;
+                border: 1px solid #130C90; /* Menambahkan border */
+                border-radius: 4px;
+                text-decoration: none;
+                }
+        }
+          
     
