@@ -6,58 +6,73 @@ use App\Models\presensiModel;
 
 class SummaryPresensiController extends BaseController
 {
-    public function index()
+        public function index()
     {
         // Periksa apakah pengguna sudah login
         if (!session()->get('logged_in')) {
             return redirect()->to('/login');
         }
 
-        // Mendapatkan tanggal hari ini
-        $today = date('Y-m-d');
-
-        // Inisialisasi Model Presensi
-        $ModelPresensi = new presensiModel();
-
-        // Hitung jumlah presensi untuk hari ini berdasarkan status
-        $alphaCount = $ModelPresensi->where('status', 'Alpha')
-            ->where('tanggal', $today)
-            ->countAllResults();
-        $sakitCount = $ModelPresensi->where('status', 'Sakit')
-            ->where('tanggal', $today)
-            ->countAllResults();
-        $ijinCount = $ModelPresensi->where('status', 'Ijin')
-            ->where('tanggal', $today)
-            ->countAllResults();
-        $wfoCount = $ModelPresensi->where('status', 'WFO')
-            ->where('tanggal', $today)
-            ->countAllResults();
-        $wfhCount = $ModelPresensi->where('status', 'WFH')
-            ->where('tanggal', $today)
-            ->countAllResults();
+        // Panggil method getHari untuk menghitung data harian
+        $dataHarian = $this->getHari();
 
         // Dapatkan data presensi per bulan
         $dataPresensiBulan = $this->presensiPerBulan();
 
         // Siapkan data untuk dikirim ke view
         $data = [
-            'title' => 'Summary Presensi Hari Ini',
-            'alphaCount' => $alphaCount,
-            'sakitCount' => $sakitCount,
-            'ijinCount' => $ijinCount,
-            'wfoCount' => $wfoCount,
-            'wfhCount' => $wfhCount,
+            'title' => 'Statistik Absensi',
+            'alphaCount' => $dataHarian['alphaCount'],
+            'sakitCount' => $dataHarian['sakitCount'],
+            'ijinCount' => $dataHarian['ijinCount'],
+            'wfoCount' => $dataHarian['wfoCount'],
+            'wfhCount' => $dataHarian['wfhCount'],
             'persen_wfo' => $dataPresensiBulan['persen_wfo'],
             'persen_wfh' => $dataPresensiBulan['persen_wfh'],
             'persen_izin' => $dataPresensiBulan['persen_izin'],
             'persen_sakit' => $dataPresensiBulan['persen_sakit'],
             'persen_alpha' => $dataPresensiBulan['persen_alpha'],
-            'presensi_perbulan' => $this->getTahun() // Panggil method getTahun untuk grafik per tahun
+            'presensi_perbulan' => $this->getTahun()
         ];
 
         // Return view dengan data yang sudah dihitung
         return view('summaryPresensi', $data);
     }
+
+    public function getHari($tanggal = null)
+{
+    // Jika tidak ada tanggal yang dipilih, gunakan tanggal hari ini
+    $tanggal = $tanggal ? $tanggal : date('Y-m-d');
+
+    // Inisialisasi Model Presensi
+    $ModelPresensi = new presensiModel();
+
+    // Hitung jumlah presensi untuk tanggal yang dipilih berdasarkan status
+    $alphaCount = $ModelPresensi->where('status', 'Alpha')
+        ->where('tanggal', $tanggal)
+        ->countAllResults();
+    $sakitCount = $ModelPresensi->where('status', 'Sakit')
+        ->where('tanggal', $tanggal)
+        ->countAllResults();
+    $ijinCount = $ModelPresensi->where('status', 'Ijin')
+        ->where('tanggal', $tanggal)
+        ->countAllResults();
+    $wfoCount = $ModelPresensi->where('status', 'WFO')
+        ->where('tanggal', $tanggal)
+        ->countAllResults();
+    $wfhCount = $ModelPresensi->where('status', 'WFH')
+        ->where('tanggal', $tanggal)
+        ->countAllResults();
+
+    return [
+        'alphaCount' => $alphaCount,
+        'sakitCount' => $sakitCount,
+        'ijinCount' => $ijinCount,
+        'wfoCount' => $wfoCount,
+        'wfhCount' => $wfhCount
+    ];
+}
+
 
     public function presensiPerBulan()
     {
@@ -121,7 +136,7 @@ class SummaryPresensiController extends BaseController
     }
 
     public function getTahun($tahun = null) {
-        $tahun = $tahun ? $tahun : date('Y'); // Jika tidak ada tahun dipilih, gunakan tahun saat ini
+        $tahun = $tahun ? $tahun : date('Y'); 
     
         $ModelPresensi = new presensiModel();
     
@@ -156,55 +171,106 @@ class SummaryPresensiController extends BaseController
     
     public function filter()
     {
-        // Periksa apakah pengguna sudah login
-        if (!session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-    
+        // Ambil tahun yang dipilih
         $tahunDipilih = $this->request->getGet('tahun');
-    
-        // Jika tahun tidak dipilih, default ke tahun sekarang
+        // Default
         $tahun = $tahunDipilih ? $tahunDipilih : date('Y');
-
-        $ModelPresensi = new presensiModel();
-        $dataPresensiBulan = $this->presensiPerBulan(); 
     
+        // Inisialisasi model presensi
+        $ModelPresensi = new presensiModel();
+                
         // Hitung jumlah presensi berdasarkan status untuk tahun yang dipilih
-        $alphaCount = $ModelPresensi->where('status', 'Alpha')
+        $totalAlphaPresensi = $ModelPresensi->where('status', 'Alpha')
             ->where('YEAR(tanggal)', $tahun)
             ->countAllResults();
-        $sakitCount = $ModelPresensi->where('status', 'Sakit')
+
+        $totalSakitPresensi = $ModelPresensi->where('status', 'Sakit')
             ->where('YEAR(tanggal)', $tahun)
             ->countAllResults();
-        $ijinCount = $ModelPresensi->where('status', 'Ijin')
+
+        $totalIjinPresensi = $ModelPresensi->where('status', 'Ijin')
             ->where('YEAR(tanggal)', $tahun)
             ->countAllResults();
-        $wfoCount = $ModelPresensi->where('status', 'WFO')
+
+        $totalWfoPresensi = $ModelPresensi->where('status', 'WFO')
             ->where('YEAR(tanggal)', $tahun)
             ->countAllResults();
-        $wfhCount = $ModelPresensi->where('status', 'WFH')
+
+        $totalWfhPresensi = $ModelPresensi->where('status', 'WFH')
             ->where('YEAR(tanggal)', $tahun)
             ->countAllResults();
+
+    
+        // Data Harian
+        $dataHarian = $this->getHari();
+    
+        // Data per bulan
+        $dataPresensiBulan = $this->presensiPerBulan();
     
         // Siapkan data untuk dikirim ke view
         $data = [
-            'title' => 'Summary Presensi Tahun ' . $tahun,
-            'alphaCount' => $alphaCount,
-            'sakitCount' => $sakitCount,
-            'ijinCount' => $ijinCount,
-            'wfoCount' => $wfoCount,
-            'wfhCount' => $wfhCount,
-            'persen_wfo' => $dataPresensiBulan['persen_wfo'], 
+            'title' => 'Statistik Absensi',
+            'alphaCount' => $dataHarian['alphaCount'],
+            'sakitCount' => $dataHarian['sakitCount'],
+            'ijinCount' => $dataHarian['ijinCount'],
+            'wfoCount' => $dataHarian['wfoCount'],
+            'wfhCount' => $dataHarian['wfhCount'],
+            'totalAlphaPresensi' => $totalAlphaPresensi,
+            'totalSakitPresensi' => $totalSakitPresensi,
+            'totalIjinPresensi' => $totalIjinPresensi,
+            'totalWfoPresensi' => $totalWfoPresensi,
+            'totalWfhPresensi' => $totalWfhPresensi,
+            'persen_wfo' => $dataPresensiBulan['persen_wfo'],
             'persen_wfh' => $dataPresensiBulan['persen_wfh'],
             'persen_izin' => $dataPresensiBulan['persen_izin'],
             'persen_sakit' => $dataPresensiBulan['persen_sakit'],
             'persen_alpha' => $dataPresensiBulan['persen_alpha'],
-            'presensi_perbulan' => $this->getTahun($tahun), 
+            'presensi_perbulan' => $this->getTahun($tahun),
             'tahunDipilih' => $tahun
         ];
     
+        // Return view dengan data yang sudah dihitung
         return view('summaryPresensi', $data);
     }
     
-
+    public function filterHari()
+    {
+        // Ambil hari
+        $hariDipilih = $this->request->getGet('hari');
+    
+        // Default hari 
+        $hari = $hariDipilih ? $hariDipilih : date('l'); 
+    
+        // Mendapatkan tanggal untuk hari 
+        $today = new \DateTime();
+        $today->modify('this week ' . $hari);
+        $selectedDate = $today->format('Y-m-d');
+    
+        // Data Harian
+        $dataHarian = $this->getHari($selectedDate);
+    
+        // Data per bulan
+        $dataPresensiBulan = $this->presensiPerBulan();
+    
+        // Siapkan data untuk dikirim ke view
+        $data = [
+            'title' => 'Statistik Absensi',
+            'alphaCount' => $dataHarian['alphaCount'],
+            'sakitCount' => $dataHarian['sakitCount'],
+            'ijinCount' => $dataHarian['ijinCount'],
+            'wfoCount' => $dataHarian['wfoCount'],
+            'wfhCount' => $dataHarian['wfhCount'],
+            'persen_wfo' => $dataPresensiBulan['persen_wfo'],
+            'persen_wfh' => $dataPresensiBulan['persen_wfh'],
+            'persen_izin' => $dataPresensiBulan['persen_izin'],
+            'persen_sakit' => $dataPresensiBulan['persen_sakit'],
+            'persen_alpha' => $dataPresensiBulan['persen_alpha'],
+            'presensi_perbulan' => $this->getTahun(),
+            'hariDipilih' => $hariDipilih
+        ];
+    
+        // Return view dengan data yang sudah dihitung
+        return view('summaryPresensi', $data);
+    }
+    
 }

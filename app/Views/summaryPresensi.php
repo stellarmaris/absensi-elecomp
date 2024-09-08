@@ -18,6 +18,22 @@
     <div class="chart-container">
         <div class="kartu">
             <h5>Chart Presensi Per Hari</h5>
+           <!-- Filter form -->
+            <div class="filter">
+                <form action="<?= site_url('/SummaryPresensiController/filterHari') ?>" method="get" class="d-flex">
+                    <select id="day" name="hari" class="form-control custom">
+                        <option value="">Pilih Hari</option>
+                        <option value="Monday" <?= isset($hariDipilih) && $hariDipilih == 'Monday' ? 'selected' : '' ?>>Senin</option>
+                        <option value="Tuesday" <?= isset($hariDipilih) && $hariDipilih == 'Tuesday' ? 'selected' : '' ?>>Selasa</option>
+                        <option value="Wednesday" <?= isset($hariDipilih) && $hariDipilih == 'Wednesday' ? 'selected' : '' ?>>Rabu</option>
+                        <option value="Thursday" <?= isset($hariDipilih) && $hariDipilih == 'Thursday' ? 'selected' : '' ?>>Kamis</option>
+                        <option value="Friday" <?= isset($hariDipilih) && $hariDipilih == 'Friday' ? 'selected' : '' ?>>Jumat</option>
+                        <option value="Saturday" <?= isset($hariDipilih) && $hariDipilih == 'Saturday' ? 'selected' : '' ?>>Sabtu</option>
+                        <option value="Sunday" <?= isset($hariDipilih) && $hariDipilih == 'Sunday' ? 'selected' : '' ?>>Minggu</option>
+                    </select>
+                    <button type="submit" class="btn custom-btn">Tampilkan Data</button>
+                </form>
+            </div>
             <canvas id="myPieChart"></canvas>
         </div>
         <div class="kartu">
@@ -43,7 +59,6 @@
                 </select>
                 <button type="submit" class="btn custom-btn">Tampilkan Data</button>
             </form>
-
         </div>
 
         <!-- Chart per tahun -->
