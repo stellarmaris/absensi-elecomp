@@ -18,11 +18,14 @@
             <a href="/lokasiSemua" class="nav-link">
                 <i class="fa-solid fa-location-dot"></i> Lokasi Pengguna
             </a>
+            <a href="/summary-presensi" class="nav-link">
+                <i class="fa-solid fa-chart-area"></i> Statistik Absensi
+            </a>
             <a href="/RekapitulasiAbsen" class="nav-link">
                 <i class="fa-solid fa-file-alt"></i> Rekapitulasi Absensi
             </a>
-            <a href="/summary-presensi" class="nav-link">
-                <i class="fa-solid fa-chart-area"></i> Statistik Absensi
+            <a href="/HitungNilai" class="nav-link">
+                <i class="fa-solid fa-file-invoice"></i> Rekapitulasi Penilaian
             </a>
             <a href="/user-list" class="nav-link">
                 <i class="fa-solid fa-user-group"></i> Daftar Pengguna
