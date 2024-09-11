@@ -16,29 +16,34 @@
 
     <!-- Chart per hari dan per bulan -->
     <div class="chart-container">
-        <div class="kartu">
-            <h5>Chart Presensi Per Hari</h5>
-           <!-- Filter form -->
-            <div class="filter">
-                <form action="<?= site_url('/SummaryPresensiController/filterHari') ?>" method="get" class="d-flex">
-                    <select id="day" name="hari" class="form-control custom">
-                        <option value="">Pilih Hari</option>
-                        <option value="Monday" <?= isset($hariDipilih) && $hariDipilih == 'Monday' ? 'selected' : '' ?>>Senin</option>
-                        <option value="Tuesday" <?= isset($hariDipilih) && $hariDipilih == 'Tuesday' ? 'selected' : '' ?>>Selasa</option>
-                        <option value="Wednesday" <?= isset($hariDipilih) && $hariDipilih == 'Wednesday' ? 'selected' : '' ?>>Rabu</option>
-                        <option value="Thursday" <?= isset($hariDipilih) && $hariDipilih == 'Thursday' ? 'selected' : '' ?>>Kamis</option>
-                        <option value="Friday" <?= isset($hariDipilih) && $hariDipilih == 'Friday' ? 'selected' : '' ?>>Jumat</option>
-                        <option value="Saturday" <?= isset($hariDipilih) && $hariDipilih == 'Saturday' ? 'selected' : '' ?>>Sabtu</option>
-                        <option value="Sunday" <?= isset($hariDipilih) && $hariDipilih == 'Sunday' ? 'selected' : '' ?>>Minggu</option>
-                    </select>
+    <div class="kartu">
+        <h5>Chart Presensi Per Hari</h5>
+        <!-- Filter form -->
+        <div class="filter">
+                <form action="<?= site_url('/SummaryPresensiController/filterTanggal') ?>" method="get" class="d-flex">
+                    <input type="date" id="date" name="tanggal" class="form-control custom" value="<?= isset($tanggalDipilih) ? $tanggalDipilih : date('Y-m-d') ?>">
                     <button type="submit" class="btn custom-btn">Tampilkan Data</button>
                 </form>
             </div>
             <canvas id="myPieChart"></canvas>
         </div>
-        <div class="kartu">
-            <h5>Chart Presensi Per Bulan</h5>
-            <canvas id="chart2"></canvas>
+        
+        <!-- === GRAFIK GARIS === -->
+       <div class="kartu">
+            <h5>Chart Presensi Per Tanggal</h5>
+            
+                <form action="<?= base_url('/summary-presensi')?>" method="GET">
+                    <div class="filterDate">
+                        <label for="start_date">Dari Tanggal:</label>
+                        <input type="date" id="start_date" name="start_date" value="<?= esc($startDate) ?>">
+
+                        <label for="end_date">Sampai Tanggal:</label>
+                        <input type="date" id="end_date" name="end_date" value="<?= esc($endDate)?>" placeholder="Tanggal Awal">
+                    </div>
+                    <button type="submit" class="btn filter-btn" style="margin-bottom:20px">Terapkan</button>
+                </form>
+          
+            <canvas id="LineChart" ></canvas>
         </div>
     </div>
 
@@ -139,23 +144,52 @@
         }
     });
 
-    // Pie Chart per bulan
-    const ctxPie2 = document.getElementById('chart2').getContext('2d');
-    new Chart(ctxPie2, {
-        type: 'pie',
-        data: {
-            labels: ['WFO', 'WFH', 'Sakit', 'Izin', 'Alpha'],
-            datasets: [{
-                data: [<?= $persen_wfo ?>, <?= $persen_wfh ?>, <?= $persen_sakit ?>, <?= $persen_izin ?>, <?= $persen_alpha ?>],
-                backgroundColor: ['#66BB6A', '#42A5F5', '#FFCA28', '#FF8A65', '#EF5350'],
-                hoverOffset: 4
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: { legend: { position: 'top' }, tooltip: { enabled: true } }
-        }
-    });
+    //============== grafik garis ===============
+
+        //ambil data untuk grafik garis
+        const presensiPerTanggal = <?= json_encode($presensiPerTanggal)?>;
+        const tanggalLabels = Object.keys(presensiPerTanggal);
+        
+        //buat dataset setiap status
+        const datasetsGaris = datasetLabels.map((label, index)=>({
+            label:label,
+            data: tanggalLabels.map(tanggal =>presensiPerTanggal[tanggal][label] || 0),
+            fill:false,
+            borderColor: datasetColors[index],
+            tension:0.1
+        }));
+
+        //buat grafik garis
+        const ctxLine = document.getElementById('LineChart').getContext('2d');
+        new Chart(ctxLine,{
+            type: 'line',
+            data: {
+                labels: tanggalLabels,
+                datasets: datasetsGaris
+            },
+            options:{
+                responsive:true,
+                plugins: {
+                    legend:{
+                        position:'top',
+                        display:true
+                    },
+                    tooltip:{enabled: true}
+                },
+                scales:{
+                    x:{
+                        title: { display: true, text: 'Tanggal' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Jumlah Presensi' },
+                        ticks: { beginAtZero: true, stepSize: 1}
+                    }
+                }
+            }
+        });
+
+   
 </script>
+
 
 <?= $this->endSection() ?>

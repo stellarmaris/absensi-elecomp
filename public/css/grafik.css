@@ -70,7 +70,31 @@
     border-radius: 8px;
     background-color: #fff;
 }
+.filterDate {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    
+}
 
+.filterDate input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.filterDate label {
+    margin-right: 0px;
+}
+.filter-btn {
+    margin-top: 10px;
+    padding: 6px 15px;
+    background-color: #130C90;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: flex-end; /* Agar button berada di kanan bawah */
+}
 
 /* Media query untuk perangkat yang lebih kecil */
 @media (max-width: 768px) {
@@ -101,6 +125,17 @@
       .kartu2 {
         width: 100%; /* Lebar penuh pada layar kecil */
       }
+    
+      .filterDate {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filterDate input
+     {
+        width: 100%;
+    }
+      
 }
 
 @media (max-width: 480px) {
@@ -111,4 +146,5 @@
     .custom-btn, .custom {
         height: 35px; 
     }
+   
 }

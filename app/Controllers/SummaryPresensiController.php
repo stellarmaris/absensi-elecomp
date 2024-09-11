@@ -16,8 +16,13 @@ class SummaryPresensiController extends BaseController
         // Panggil method getHari untuk menghitung data harian
         $dataHarian = $this->getHari();
 
-        // Dapatkan data presensi per bulan
-        $dataPresensiBulan = $this->presensiPerBulan();
+        //panggil tanggal grafik garis
+        $endDate = $this->request->getGet('end_date')?? date('Y-m-d');
+        $startDate = $this->request->getGet('start_date') ?? date('Y-m-d', strtotime('-7 days'));
+
+        //data grafik garis per tanggal
+        $presensiPerTanggal = $this->getPresensiperTanggal($startDate, $endDate);
+
 
         // Siapkan data untuk dikirim ke view
         $data = [
@@ -27,12 +32,10 @@ class SummaryPresensiController extends BaseController
             'ijinCount' => $dataHarian['ijinCount'],
             'wfoCount' => $dataHarian['wfoCount'],
             'wfhCount' => $dataHarian['wfhCount'],
-            'persen_wfo' => $dataPresensiBulan['persen_wfo'],
-            'persen_wfh' => $dataPresensiBulan['persen_wfh'],
-            'persen_izin' => $dataPresensiBulan['persen_izin'],
-            'persen_sakit' => $dataPresensiBulan['persen_sakit'],
-            'persen_alpha' => $dataPresensiBulan['persen_alpha'],
-            'presensi_perbulan' => $this->getTahun()
+            'presensi_perbulan' => $this->getTahun(),  
+            'presensiPerTanggal'=>$presensiPerTanggal,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
         ];
 
         // Return view dengan data yang sudah dihitung
@@ -40,100 +43,39 @@ class SummaryPresensiController extends BaseController
     }
 
     public function getHari($tanggal = null)
-{
-    // Jika tidak ada tanggal yang dipilih, gunakan tanggal hari ini
-    $tanggal = $tanggal ? $tanggal : date('Y-m-d');
-
-    // Inisialisasi Model Presensi
-    $ModelPresensi = new presensiModel();
-
-    // Hitung jumlah presensi untuk tanggal yang dipilih berdasarkan status
-    $alphaCount = $ModelPresensi->where('status', 'Alpha')
-        ->where('tanggal', $tanggal)
-        ->countAllResults();
-    $sakitCount = $ModelPresensi->where('status', 'Sakit')
-        ->where('tanggal', $tanggal)
-        ->countAllResults();
-    $ijinCount = $ModelPresensi->where('status', 'Ijin')
-        ->where('tanggal', $tanggal)
-        ->countAllResults();
-    $wfoCount = $ModelPresensi->where('status', 'WFO')
-        ->where('tanggal', $tanggal)
-        ->countAllResults();
-    $wfhCount = $ModelPresensi->where('status', 'WFH')
-        ->where('tanggal', $tanggal)
-        ->countAllResults();
-
-    return [
-        'alphaCount' => $alphaCount,
-        'sakitCount' => $sakitCount,
-        'ijinCount' => $ijinCount,
-        'wfoCount' => $wfoCount,
-        'wfhCount' => $wfhCount
-    ];
-}
-
-
-    public function presensiPerBulan()
     {
+        // Jika tidak ada tanggal yang dipilih, gunakan tanggal hari ini
+        $tanggal = $tanggal ? $tanggal : date('Y-m-d');
+
+        // Inisialisasi Model Presensi
         $ModelPresensi = new presensiModel();
 
-        $month = date('m'); // Bulan saat ini
-        $year = date('Y'); // Tahun saat ini
-
-        $query = $ModelPresensi->builder()
-            ->select('status, COUNT(status) as jumlah')
-            ->where('MONTH(tanggal)', $month)
-            ->where('YEAR(tanggal)', $year)
-            ->groupBy('status')
-            ->get();
-
-        $dataPresensi = $query->getResultArray();
-
-        $totalPresensi = 0;
-        $wfo = 0;
-        $wfh = 0;
-        $izin = 0;
-        $sakit = 0;
-        $alpha = 0;
-
-        foreach ($dataPresensi as $presensi) {
-            $totalPresensi += $presensi['jumlah'];
-
-            switch ($presensi['status']) {
-                case 'WFO':
-                    $wfo = $presensi['jumlah'];
-                    break;
-                case 'WFH':
-                    $wfh = $presensi['jumlah'];
-                    break;
-                case 'Izin':
-                    $izin = $presensi['jumlah'];
-                    break;
-                case 'Sakit':
-                    $sakit = $presensi['jumlah'];
-                    break;
-                case 'Alpha':
-                    $alpha = $presensi['jumlah'];
-                    break;
-            }
-        }
-
-        // Hitung persentase
-        $persen_wfo = ($totalPresensi > 0) ? ($wfo / $totalPresensi) * 100 : 0;
-        $persen_wfh = ($totalPresensi > 0) ? ($wfh / $totalPresensi) * 100 : 0;
-        $persen_izin = ($totalPresensi > 0) ? ($izin / $totalPresensi) * 100 : 0;
-        $persen_sakit = ($totalPresensi > 0) ? ($sakit / $totalPresensi) * 100 : 0;
-        $persen_alpha = ($totalPresensi > 0) ? ($alpha / $totalPresensi) * 100 : 0;
+        // Hitung jumlah presensi untuk tanggal yang dipilih berdasarkan status
+        $alphaCount = $ModelPresensi->where('status', 'Alpha')
+            ->where('tanggal', $tanggal)
+            ->countAllResults();
+        $sakitCount = $ModelPresensi->where('status', 'Sakit')
+            ->where('tanggal', $tanggal)
+            ->countAllResults();
+        $ijinCount = $ModelPresensi->where('status', 'Ijin')
+            ->where('tanggal', $tanggal)
+            ->countAllResults();
+        $wfoCount = $ModelPresensi->where('status', 'WFO')
+            ->where('tanggal', $tanggal)
+            ->countAllResults();
+        $wfhCount = $ModelPresensi->where('status', 'WFH')
+            ->where('tanggal', $tanggal)
+            ->countAllResults();
 
         return [
-            'persen_wfo' => $persen_wfo,
-            'persen_wfh' => $persen_wfh,
-            'persen_izin' => $persen_izin,
-            'persen_sakit' => $persen_sakit,
-            'persen_alpha' => $persen_alpha
+            'alphaCount' => $alphaCount,
+            'sakitCount' => $sakitCount,
+            'ijinCount' => $ijinCount,
+            'wfoCount' => $wfoCount,
+            'wfhCount' => $wfhCount
         ];
     }
+
 
     public function getTahun($tahun = null) {
         $tahun = $tahun ? $tahun : date('Y'); 
@@ -203,9 +145,11 @@ class SummaryPresensiController extends BaseController
     
         // Data Harian
         $dataHarian = $this->getHari();
-    
-        // Data per bulan
-        $dataPresensiBulan = $this->presensiPerBulan();
+        
+          //panggil tanggal dan method grafik garis
+          $endDate = $this->request->getGet('end_date')?? date('Y-m-d');
+          $startDate = $this->request->getGet('start_date') ?? date('Y-m-d', strtotime('-7 days'));
+          $presensiPerTanggal = $this->getPresensiperTanggal($startDate, $endDate);
     
         // Siapkan data untuk dikirim ke view
         $data = [
@@ -220,38 +164,33 @@ class SummaryPresensiController extends BaseController
             'totalIjinPresensi' => $totalIjinPresensi,
             'totalWfoPresensi' => $totalWfoPresensi,
             'totalWfhPresensi' => $totalWfhPresensi,
-            'persen_wfo' => $dataPresensiBulan['persen_wfo'],
-            'persen_wfh' => $dataPresensiBulan['persen_wfh'],
-            'persen_izin' => $dataPresensiBulan['persen_izin'],
-            'persen_sakit' => $dataPresensiBulan['persen_sakit'],
-            'persen_alpha' => $dataPresensiBulan['persen_alpha'],
             'presensi_perbulan' => $this->getTahun($tahun),
-            'tahunDipilih' => $tahun
+            'tahunDipilih' => $tahun,
+             'startDate' => $startDate,
+             'endDate' => $endDate,
+            'presensiPerTanggal'=>$presensiPerTanggal,
         ];
     
         // Return view dengan data yang sudah dihitung
         return view('summaryPresensi', $data);
     }
     
-    public function filterHari()
+    public function filterTanggal()
     {
-        // Ambil hari
-        $hariDipilih = $this->request->getGet('hari');
+        // Ambil tanggal yang dipilih dari form
+        $tanggalDipilih = $this->request->getGet('tanggal');
+        
+        // Jika tidak ada tanggal yang dipilih, gunakan tanggal hari ini
+        $tanggal = $tanggalDipilih ? $tanggalDipilih : date('Y-m-d');
     
-        // Default hari 
-        $hari = $hariDipilih ? $hariDipilih : date('l'); 
-    
-        // Mendapatkan tanggal untuk hari 
-        $today = new \DateTime();
-        $today->modify('this week ' . $hari);
-        $selectedDate = $today->format('Y-m-d');
-    
-        // Data Harian
-        $dataHarian = $this->getHari($selectedDate);
-    
-        // Data per bulan
-        $dataPresensiBulan = $this->presensiPerBulan();
-    
+        // Ambil data presensi berdasarkan tanggal yang dipilih menggunakan method getHari()
+        $dataHarian = $this->getHari($tanggal);
+        
+        //panggil tanggal dan method grafik garis
+        $endDate = $this->request->getGet('end_date')?? date('Y-m-d');
+        $startDate = $this->request->getGet('start_date') ?? date('Y-m-d', strtotime('-7 days'));
+        $presensiPerTanggal = $this->getPresensiperTanggal($startDate, $endDate);
+
         // Siapkan data untuk dikirim ke view
         $data = [
             'title' => 'Statistik Absensi',
@@ -260,17 +199,55 @@ class SummaryPresensiController extends BaseController
             'ijinCount' => $dataHarian['ijinCount'],
             'wfoCount' => $dataHarian['wfoCount'],
             'wfhCount' => $dataHarian['wfhCount'],
-            'persen_wfo' => $dataPresensiBulan['persen_wfo'],
-            'persen_wfh' => $dataPresensiBulan['persen_wfh'],
-            'persen_izin' => $dataPresensiBulan['persen_izin'],
-            'persen_sakit' => $dataPresensiBulan['persen_sakit'],
-            'persen_alpha' => $dataPresensiBulan['persen_alpha'],
             'presensi_perbulan' => $this->getTahun(),
-            'hariDipilih' => $hariDipilih
+            'tanggalDipilih' => $tanggal,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'presensiPerTanggal'=>$presensiPerTanggal,
         ];
     
-        // Return view dengan data yang sudah dihitung
+        // Return view dengan data yang sudah difilter berdasarkan tanggal
         return view('summaryPresensi', $data);
     }
+
+    // ================= GRAFIK GARIS ==========
+    public function getPresensiperTanggal($startDate, $endDate){
+        $ModelPresensi = new presensiModel();
+
+        $builder = $ModelPresensi->builder();
+        $builder->select("tanggal, status, COUNT(*) as jumlah");
+        $builder->where("tanggal >=", $startDate);
+        $builder->where ("tanggal <=",$endDate);
+        $builder->groupBy("tanggal, status");
+        $query = $builder->get();
+
+        $results=$query->getResultArray();
+
+        // DATA UNTUK CHARTNYA
+
+        $data = [];
+        foreach($results as $row){
+            $tanggal = $row['tanggal'];
+            $status = $row['status'];
+            $jumlah = $row['jumlah'];
+
+            if(!isset($data[$tanggal])){
+                $data[$tanggal] =[
+                    'WFO'=>0,
+                    'WFH'=>0,
+                    'Sakit' => 0,
+                    'Izin' => 0,
+                    'Alpha' => 0
+                ];
+            }
+
+            $data[$tanggal][$status]= $jumlah;
+        }
+
+        return $data;
+    }
+
+
+    
     
 }

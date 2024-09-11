@@ -20,7 +20,7 @@ class historyUserController extends BaseController
         $ModelPresensi= new presensiModel();
         
         $tanggal = $this->request->getGet('tanggal');
-        $currentPage = $this->request->getGet('page') ?? 1;
+        $currentPage = $this->request->getGet('page_presensi') ?? 1;
         $perPage=5;
 
         $query = $ModelPresensi->where('id_magang',$userId);
@@ -38,22 +38,18 @@ class historyUserController extends BaseController
        $data['title'] = 'Riwayat';
        $data['currentPage'] = $currentPage;
        $data['perPage'] = $perPage;
+       $data['makeClickableLinks'] = [$this, 'makeClickableLinks'];
     
-       echo view ('riwayat',$data);
+       echo view ('riwayat', $data);
 
-    //      // $data['data_presensi'] = $ModelPresensi->findAll();
-    //     $data['data_presensi'] = $ModelPresensi->getPresensiUser($userId,$tanggal, $perPage,$offset);
-        
-    // //    $data['data_presensi'] = $ModelPresensi->where('id_magang',$userId)
-    // //                             ->where('tanggal',$tanggal)
-    // //                             ->findAll();
-       
-    //    $data['id_magang']= $userId;
-    //     $data['tanggal'] = $tanggal;
-    //     $data['title'] = 'Riwayat';
-    //     $pager = \Config\Services::pager();
-    //     $data['pager'] = $pager->makeLinks($page,$perPage, $total,'custom');
-    //     echo view('riwayat', $data);
+    
+    }
+
+     // Fungsi untuk membuat URL menjadi link
+     public function makeClickableLinks($text) {
+        $pattern = '/(https?:\/\/[^\s]+)/';
+        $text = preg_replace($pattern, '<a href="$1" target="_blank">$1</a>', $text);
+        return $text;
     }
     
 
