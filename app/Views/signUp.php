@@ -129,7 +129,7 @@
     <?php endif; ?>
 
     <div class="container p-4 border">
-        <form action="" method="POST">
+        <form action="/signUp" method="POST">
             <?= csrf_field() ?>
             <div class="mb-4" style="text-align: center;">
                 <h2>Pendaftaran Absensi</h2>
