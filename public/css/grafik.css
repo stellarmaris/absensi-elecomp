@@ -54,7 +54,15 @@
 
 
 .kartu{
-    width: 45%;
+    width: 30%;
+    margin: 8px;
+    padding:15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+}
+.kartuGaris{
+    width: 60%;
     margin: 8px;
     padding:15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -72,9 +80,10 @@
 }
 .filterDate {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: end;
+    margin-bottom: 20px;
 }
 
 .filterDate input {
@@ -84,17 +93,13 @@
 }
 .filterDate label {
     margin-right: 0px;
+    font-size: 12px;
 }
-.filter-btn {
-    margin-top: 10px;
-    padding: 6px 15px;
-    background-color: #130C90;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    align-self: flex-end; /* Agar button berada di kanan bawah */
+.tglAwal{
+    display: flex;
+    flex-direction: column;
 }
+
 
 /* Media query untuk perangkat yang lebih kecil */
 @media (max-width: 768px) {
@@ -122,7 +127,7 @@
         width: 100%; /* Lebar penuh pada layar kecil */
       }
 
-      .kartu2 {
+      .kartu2, .kartuGaris {
         width: 100%; /* Lebar penuh pada layar kecil */
       }
     
@@ -131,10 +136,7 @@
         align-items: stretch;
     }
 
-    .filterDate input
-     {
-        width: 100%;
-    }
+    
       
 }
 
@@ -146,5 +148,8 @@
     .custom-btn, .custom {
         height: 35px; 
     }
+    .kartu2, .kartuGaris {
+        width: 100%; /* Lebar penuh pada layar kecil */
+      }
    
 }

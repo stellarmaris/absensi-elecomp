@@ -29,20 +29,22 @@
         </div>
         
         <!-- === GRAFIK GARIS === -->
-       <div class="kartu">
+       <div class="kartuGaris">
             <h5>Chart Presensi Per Tanggal</h5>
-            
                 <form action="<?= base_url('/summary-presensi')?>" method="GET">
                     <div class="filterDate">
-                        <label for="start_date">Dari Tanggal:</label>
-                        <input type="date" id="start_date" name="start_date" value="<?= esc($startDate) ?>">
-
-                        <label for="end_date">Sampai Tanggal:</label>
-                        <input type="date" id="end_date" name="end_date" value="<?= esc($endDate)?>" placeholder="Tanggal Awal">
+                        <div class="tglAwal">
+                            <label for="start_date">Dari Tanggal:</label>
+                            <input type="date" id="start_date" name="start_date" value="<?= esc($startDate) ?>" placeholder="Tanggal Awal" onfocus="(this.type='date')" onblur="(this.type='text')">
+                        </div>
+                        <div class="tglAwal">
+                            <label for="end_date">Sampai Tanggal:</label>
+                            <input type="date" id="end_date" name="end_date" value="<?= esc($endDate)?>" placeholder="Tanggal Akhir" onfocus="(this.type='date')" onblur="(this.type='text')">
+                        </div>
+                        <button type="submit" class="btn custom-btn" style="margin-top:6px">Tampilkan Data</button>
                     </div>
-                    <button type="submit" class="btn filter-btn" style="margin-bottom:20px">Terapkan</button>
                 </form>
-          
+            
             <canvas id="LineChart" ></canvas>
         </div>
     </div>
@@ -156,7 +158,8 @@
             data: tanggalLabels.map(tanggal =>presensiPerTanggal[tanggal][label] || 0),
             fill:false,
             borderColor: datasetColors[index],
-            tension:0.1
+            tension:0.1,
+            borderWidth: 3,
         }));
 
         //buat grafik garis
@@ -172,13 +175,21 @@
                 plugins: {
                     legend:{
                         position:'top',
-                        display:true
+                        display:true,
+                        labels: {
+                            usePointStyle: true, // Membuat tampilan legend berupa simbol bukan kotak
+                            pointStyle: 'line', // Membuat legend berupa garis
+                            
+                            
+                        }
                     },
+                    
                     tooltip:{enabled: true}
                 },
                 scales:{
                     x:{
-                        title: { display: true, text: 'Tanggal' }
+                        title: { display: true, text: 'Tanggal' },
+                        offset: true,
                     },
                     y: {
                         title: { display: true, text: 'Jumlah Presensi' },
