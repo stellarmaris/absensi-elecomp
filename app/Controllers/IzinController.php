@@ -34,6 +34,8 @@ class IzinController extends BaseController
         $date = $this->request->getPost('date');
         $time = $this->request->getPost('time');
         $status = $this->request->getPost('status');
+        $kegiatan = $this->request->getPost('kegiatan');
+
 
         // Cek apakah semua field diisi
         if (!$date || !$time || !$status) {
@@ -106,7 +108,8 @@ class IzinController extends BaseController
             'jam_masuk' => $time,
             'status' => $status,
             'foto' => $newName,
-            'verifikasi' => 'Sukses'
+            'verifikasi' => 'Pending',
+            'kegiatan'=> $kegiatan
         ];
 
         // Try to save the data

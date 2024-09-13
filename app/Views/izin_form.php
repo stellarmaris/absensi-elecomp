@@ -115,6 +115,12 @@
             <input type="file" name="foto" id="foto" accept=".jpg, .jpeg, .png" required>
         </div>
     </div>
+    <div class="form-1">
+        <div class="label"><label for="kegiatan">Keterangan Perizinan</label></div>
+        <div class="input">
+            <input type="text" name="kegiatan" id="kegiatan"  required style="height:100px">
+        </div>
+    </div>
 
     <div class="btn">
         <button type="submit">Upload</button>
