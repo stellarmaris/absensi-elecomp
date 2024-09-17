@@ -40,4 +40,23 @@ class MarkAlphaController extends BaseController
 
         return redirect()->back()->with('message', 'Attendance marked for absent users with role User.');
     }
+    public function updateStatusAlpha($id_presensi)
+    {
+        // Memanggil model presensi
+        $presensiModel = new PresensiModel();
+
+        // Update status menjadi 'alpha'
+        $data = [
+            'status' => 'alpha'
+        ];
+
+        // Proses update berdasarkan id_presensi
+        $presensiModel->update($id_presensi, $data);
+
+        // Mengatur pesan sukses
+        session()->setFlashdata('success', 'Status berhasil diperbarui menjadi Alpha');
+
+        // Redirect ke halaman sebelumnya atau halaman rekapitulasi absen
+        return redirect()->to(site_url('RekapitulasiAbsen'));
+    }
 }

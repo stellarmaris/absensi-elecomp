@@ -43,3 +43,5 @@ $routes->post('delete-user/(:num)', 'UserListController::delete/$1');
 $routes->post('/deleteFoto','deleteFotoController::deleteAll');
 $routes->post('/markAlpha','MarkAlphaController::markAlpha');
 $routes->get('/summary-presensi','SummaryPresensiController::index');
+$routes->get('RekapitulasiAbsen/updateStatusAlpha/(:num)', 'MarkAlphaController::updateStatusAlpha/$1');
+

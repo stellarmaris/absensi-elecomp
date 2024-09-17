@@ -92,42 +92,44 @@
                 </tr>
             <?php else: ?>
                 <?php
-                    // Nomor urut
-                    $nomor = 0;
-                    foreach ($data_presensi as $k => $v) {
-                        $nomor++;
-                        // Determine the row class based on the status
-                        $rowClass = '';
-                        switch ($v['status']) {
-                            case 'WFO':
-                                $rowClass = 'bg-wfo';
-                                break;
-                            case 'WFH':
-                                $rowClass = 'bg-wfh';
-                                break;
-                            case 'Izin':
-                                $rowClass = 'bg-izin';
-                                break;
-                            case 'Sakit':
-                                $rowClass = 'bg-sakit';
-                                break;
-                            case 'Alpha':
-                                $rowClass = 'bg-alpha';
-                                break;
-                        }
+                // Nomor urut
+                $nomor = 0;
+                foreach ($data_presensi as $k => $v) {
+                    $nomor++;
+                    // Determine the row class based on the status
+                    $rowClass = '';
+                    switch ($v['status']) {
+                        case 'WFO':
+                            $rowClass = 'bg-wfo';
+                            break;
+                        case 'WFH':
+                            $rowClass = 'bg-wfh';
+                            break;
+                        case 'Izin':
+                            $rowClass = 'bg-izin';
+                            break;
+                        case 'Sakit':
+                            $rowClass = 'bg-sakit';
+                            break;
+                        case 'Alpha':
+                            $rowClass = 'bg-alpha';
+                            break;
+                    }
                 ?>
-                <tr class="<?= $rowClass ?>">
-                    <td><?php echo $nomor ?></td>
-                    <td><?php echo $v['tanggal'] ?></td>
-                    <td><?= $v['Nama'] ?></td>
-                    <td><?= $v['jam_masuk'] ?></td>
-                    <td><?= $v['jam_keluar'] ?></td>
-                    <td><?= $v['status'] ?></td>
-                    <td>
-                        <a href="<?= site_url('RekapitulasiAbsen/detail/' . $v['id_presensi']); ?>" class="btn btn-danger">Detail</a>
-                    </td>
-                </tr>
-                <?php }?>
+                    <tr class="<?= $rowClass ?>">
+                        <td><?php echo $nomor ?></td>
+                        <td><?php echo $v['tanggal'] ?></td>
+                        <td><?= $v['Nama'] ?></td>
+                        <td><?= $v['jam_masuk'] ?></td>
+                        <td><?= $v['jam_keluar'] ?></td>
+                        <td><?= $v['status'] ?></td>
+                        <td>
+                            <a href="<?= site_url('RekapitulasiAbsen/detail/' . $v['id_presensi']); ?>" class="btn btn-danger">Detail</a>
+                            <a href="<?= site_url('RekapitulasiAbsen/updateStatusAlpha/' . $v['id_presensi']); ?>" class="btn btn-warning">Alpha</a>
+                        </td>
+
+                    </tr>
+                <?php } ?>
             <?php endif; ?>
         </tbody>
 
