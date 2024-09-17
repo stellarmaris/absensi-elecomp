@@ -22,6 +22,9 @@
             <a href="/riwayat" class="nav-link">
                 <i class="fa-regular fa-clock"></i> Riwayat Absensi
             </a>
+            <a href="/HitungNilaiUser" class="nav-link">
+                <i class="fa-solid fa-file-invoice"></i> Rekapitulasi Absensi
+            </a>
             <a href="/help-support" class="nav-link">
                 <i class="fa-solid fa-circle-info"></i> Help & Support
             </a>
