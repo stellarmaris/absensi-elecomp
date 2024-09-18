@@ -44,9 +44,7 @@
             color: white;
             text-align: center;
         }
-        tr:nth-child(even) {
-            background-color: #fff;
-        }
+       
 
         .form-control{
             background-color:  rgba(19, 12, 144, 0.04);
