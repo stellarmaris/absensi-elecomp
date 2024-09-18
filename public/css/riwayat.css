@@ -57,6 +57,14 @@
             justify-content: right;
             list-style-type: none;
         }
+        .pagination a.btn {
+            margin-top: 30px;
+            padding: 8px 0;
+            font-size: 18px;
+        }
+        .pagination a.btn:hover{
+            color: rgb(0, 7, 62)
+        }
         .page-item {
             margin: 0 2px; /* Menambahkan jarak antar item */
             margin-top: 12px;
@@ -119,7 +127,8 @@
                 border: 1px solid #130C90; /* Menambahkan border */
                 border-radius: 4px;
                 text-decoration: none;
-                }
+            }
+           
         }
           
     
