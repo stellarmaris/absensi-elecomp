@@ -92,10 +92,24 @@
             </div>
         </div>
         <div class="form">
-            <div class="label"><label for="time">Waktu Perizinan</label></div>
+            <div class="label"><label for="start_date">Tanggal Mulai</label></div>
             <div class="input">
-                <input type="time" name="time" id="time" value="<?= esc(old('time')) ?>">
+                <input type="date" name="start_date" id="start_date" value="<?= esc(old('start_date')) ?>">
             </div>
+        </div>
+        <div class="form">
+            <div class="label"><label for="end_date">Tanggal Akhir</label></div>
+            <div class="input">
+                <input type="date" name="end_date" id="end_date" value="<?= esc(old('end_date')) ?>">
+            </div>
+        </div>
+
+
+    </div>
+    <div class="form">
+        <div class="label"><label for="time">Waktu Perizinan</label></div>
+        <div class="input">
+            <input type="time" name="time" id="time" value="<?= esc(old('time')) ?>">
         </div>
     </div>
     <div class="form-1">
@@ -118,7 +132,7 @@
     <div class="form-1">
         <div class="label"><label for="kegiatan">Keterangan Perizinan</label></div>
         <div class="input">
-            <input type="text" name="kegiatan" id="kegiatan"  required style="height:100px">
+            <input type="text" name="kegiatan" id="kegiatan" required style="height:100px">
         </div>
     </div>
 

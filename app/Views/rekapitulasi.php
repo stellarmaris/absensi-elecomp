@@ -125,7 +125,8 @@
                         <td><?= $v['status'] ?></td>
                         <td>
                             <a href="<?= site_url('RekapitulasiAbsen/detail/' . $v['id_presensi']); ?>" class="btn btn-danger">Detail</a>
-                            <a href="<?= site_url('RekapitulasiAbsen/updateStatusAlpha/' . $v['id_presensi']); ?>" class="btn btn-warning">Alpha</a>
+                            <a href="#" class="btn btn-warning" onclick="return handleAlpha(<?= $v['id_presensi']; ?>)">Alpha</a>
+
                         </td>
 
                     </tr>
@@ -143,6 +144,27 @@
 
     </div>
 <?php endif; ?>
+<script>
+    function handleAlpha(id) {
+        // Konfirmasi dengan dialog
+        var isConfirmed = confirm('Apakah Anda yakin melakukan alpha pada user?');
+
+        if (isConfirmed) {
+            // Menanyakan keterangan
+            var keterangan = prompt('Masukkan keterangan untuk Alpha:');
+
+            if (keterangan !== null) {
+                // Mengalihkan ke URL dengan parameter ID dan keterangan
+                var url = '<?= site_url('RekapitulasiAbsen/updateStatusAlpha/') ?>' + id + '?keterangan=' + encodeURIComponent(keterangan);
+                window.location.href = url;
+            }
+        }
+
+        return false; // Mencegah aksi default dari link
+    }
+</script>
+
+
 
 
 <?= $this->endSection() ?>

@@ -45,16 +45,20 @@ class MarkAlphaController extends BaseController
         // Memanggil model presensi
         $presensiModel = new PresensiModel();
 
+        // Mengambil keterangan dari query parameter
+        $keterangan = $this->request->getGet('keterangan');
+
         // Update status menjadi 'alpha'
         $data = [
-            'status' => 'alpha'
+            'status' => 'alpha',
+            'kegiatan' => $keterangan // Menyimpan keterangan ke kolom kegiatan
         ];
 
         // Proses update berdasarkan id_presensi
         $presensiModel->update($id_presensi, $data);
 
         // Mengatur pesan sukses
-        session()->setFlashdata('success', 'Status berhasil diperbarui menjadi Alpha');
+        session()->setFlashdata('success', 'Status berhasil diperbarui menjadi Alpha dengan keterangan: ' . $keterangan);
 
         // Redirect ke halaman sebelumnya atau halaman rekapitulasi absen
         return redirect()->to(site_url('RekapitulasiAbsen'));

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\presensiModel;
 use App\Models\UserModel;
+use DateTime;
 
 class IzinController extends BaseController
 {
@@ -31,14 +32,13 @@ class IzinController extends BaseController
     public function store()
     {
         $idMagang = session()->get('user_id');
-        $date = $this->request->getPost('date');
+        $startDate = $this->request->getPost('start_date');
+        $endDate = $this->request->getPost('end_date');
         $time = $this->request->getPost('time');
         $status = $this->request->getPost('status');
-        $kegiatan = $this->request->getPost('kegiatan');
-
 
         // Cek apakah semua field diisi
-        if (!$date || !$time || !$status) {
+        if (!$startDate || !$endDate || !$time || !$status) {
             return redirect()->back()->withInput()->with('error', 'Semua field harus diisi.');
         }
 
@@ -53,12 +53,20 @@ class IzinController extends BaseController
                     'ext_in' => 'Ekstensi file foto harus berupa: png, jpg, atau jpeg.',
                 ]
             ],
-            'date' => [
-                'label' => 'Tanggal Perizinan',
+            'start_date' => [
+                'label' => 'Tanggal Mulai',
                 'rules' => 'required|valid_date',
                 'errors' => [
-                    'required' => 'Tanggal perizinan wajib diisi.',
-                    'valid_date' => 'Format tanggal perizinan tidak valid.'
+                    'required' => 'Tanggal mulai wajib diisi.',
+                    'valid_date' => 'Format tanggal mulai tidak valid.'
+                ]
+            ],
+            'end_date' => [
+                'label' => 'Tanggal Akhir',
+                'rules' => 'required|valid_date',
+                'errors' => [
+                    'required' => 'Tanggal akhir wajib diisi.',
+                    'valid_date' => 'Format tanggal akhir tidak valid.'
                 ]
             ],
             'time' => [
@@ -85,43 +93,45 @@ class IzinController extends BaseController
 
         // Proses upload file
         $file = $this->request->getFile('foto');
-
-        // Cek apakah file valid dan tidak ada error
         if (!$file->isValid() || $file->hasMoved()) {
             return redirect()->back()->withInput()->with('errors', ['foto' => 'File foto gagal diupload.']);
         }
 
-        // Generate nama file baru
         $newName = $file->getRandomName();
-
-        // Pindahkan file ke direktori tujuan
         if (!$file->move('uploads/photos', $newName)) {
             return redirect()->back()->withInput()->with('errors', ['foto' => 'Gagal memindahkan file foto.']);
         }
 
-        // Simpan data ke database
         $presensiModel = new presensiModel();
 
-        $data = [
-            'id_magang' => $idMagang,
-            'tanggal' => $date,
-            'jam_masuk' => $time,
-            'status' => $status,
-            'foto' => $newName,
-            'verifikasi' => 'Pending',
-            'kegiatan'=> $kegiatan
-        ];
+        // Buat rentang tanggal dari start_date ke end_date
+        $startDateTime = new DateTime($startDate);
+        $endDateTime = new DateTime($endDate);
 
-        // Try to save the data
-        if ($presensiModel->save($data)) {
-            // Simpan status izin ke dalam sesi
-            session()->setFlashdata('status_izin', $status);
+        while ($startDateTime <= $endDateTime) {
+            $data = [
+                'id_magang' => $idMagang,
+                'tanggal' => $startDateTime->format('Y-m-d'),
+                'jam_masuk' => $time,
+                'status' => $status,
+                'foto' => $newName,
+                'verifikasi' => 'Sukses'
+            ];
 
-            // Redirect ke halaman sukses
-            return redirect()->to('/success-izin')->with('message', 'Perizinan berhasil diupload.');
-        } else {
-            return redirect()->back()->withInput()->with('error', 'Gagal menyimpan data perizinan.');
+            // Simpan data ke database
+            if (!$presensiModel->save($data)) {
+                return redirect()->back()->withInput()->with('error', 'Gagal menyimpan data perizinan untuk tanggal ' . $startDateTime->format('Y-m-d') . '.');
+            }
+
+            // Tambah satu hari ke tanggal
+            $startDateTime->modify('+1 day');
         }
+
+        // Simpan status izin ke dalam sesi
+        session()->setFlashdata('status_izin', $status);
+
+        // Redirect ke halaman sukses
+        return redirect()->to('/success-izin')->with('message', 'Perizinan berhasil diupload.');
     }
 
     public function success()
