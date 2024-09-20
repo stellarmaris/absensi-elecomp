@@ -31,23 +31,26 @@
 }
 
 .box1 {
-  background-color: #B1DFE6; 
+  background-color: #66BB6A; 
 }
 
 .box2 {
-  background-color: #8BCFF1; 
+  background-color: #FFCA28; 
 }
 
 .box3 {
-  background-color: #5087F7; 
+  background-color: #FF8A65; 
 }
 
 .box4 {
-  background-color: #406BC4;
+  background-color: #EF5350;
 }
 
 .box5 {
-  background-color: #3057A5; /* Warna lebih gelap dari #406BC4 */
+  background-color: #3057A5; 
+}
+.box6 {
+  background-color: #B48B62;
 }
 
 

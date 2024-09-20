@@ -43,14 +43,18 @@
         <p>IZIN</p>
         <h1><?= $total_izin ?></h1>
     </div>
-    <div class="box box4">
-        <p>TOTAL</p>
-        <h1><?= $total_rekap ?></h1>
+        <div class="box box4">
+        <p>ALPHA</p>
+        <h1><?= $total_alpha ?></h1>
     </div>
 </div>
 
 <div class="box-container">
     <div class="box box5">
+        <p>TOTAL</p>
+        <h1><?= $total_rekap ?></h1>
+    </div>
+    <div class="box box6">
         <p>PENGGUNA</p>
         <h1><?= $total_user ?></h1>
     </div>

@@ -88,8 +88,8 @@ class dashboardadmin extends BaseController
             ->countAllResults();
         $data['total_sakit'] = $ModelPresensi->where('status', 'SAKIT')->where('tanggal', $tanggal_hari_ini)->countAllResults();
         $data['total_izin'] = $ModelPresensi->where('status', 'IZIN')->where('tanggal', $tanggal_hari_ini)->countAllResults();
-        $data['total_rekap'] = $data['total_hadir'] + $data['total_sakit'] + $data['total_izin'];
-
+        $data['total_alpha'] = $ModelPresensi->where('status', 'ALPHA')->where('tanggal', $tanggal_hari_ini)->countAllResults();
+        $data['total_rekap'] = $data['total_hadir'] + $data['total_sakit'] + $data['total_izin'] + $data['total_alpha'];
     }
     
     private function getTotalUser(): int
