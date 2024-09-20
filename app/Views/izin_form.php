@@ -86,12 +86,6 @@
     <?= csrf_field() ?>
     <div class="group">
         <div class="form">
-            <div class="label"><label for="date">Tanggal Perizinan</label></div>
-            <div class="input">
-                <input type="date" name="date" id="date" value="<?= esc(old('date')) ?>">
-            </div>
-        </div>
-        <div class="form">
             <div class="label"><label for="start_date">Tanggal Mulai</label></div>
             <div class="input">
                 <input type="date" name="start_date" id="start_date" value="<?= esc(old('start_date')) ?>">
