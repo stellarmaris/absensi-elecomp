@@ -57,7 +57,7 @@ class SummaryPresensiController extends BaseController
         $sakitCount = $ModelPresensi->where('status', 'Sakit')
             ->where('tanggal', $tanggal)
             ->countAllResults();
-        $ijinCount = $ModelPresensi->where('status', 'Ijin')
+        $ijinCount = $ModelPresensi->where('status', 'Izin')
             ->where('tanggal', $tanggal)
             ->countAllResults();
         $wfoCount = $ModelPresensi->where('status', 'WFO')
@@ -130,7 +130,7 @@ class SummaryPresensiController extends BaseController
             ->where('YEAR(tanggal)', $tahun)
             ->countAllResults();
 
-        $totalIjinPresensi = $ModelPresensi->where('status', 'Ijin')
+        $totalIjinPresensi = $ModelPresensi->where('status', 'Izin')
             ->where('YEAR(tanggal)', $tahun)
             ->countAllResults();
 
