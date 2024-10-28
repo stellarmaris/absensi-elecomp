@@ -1,4 +1,4 @@
-<?= $this->extend('/layouts/admin_layout') ?>
+<?= $this->extend('/Layouts/admin_layout') ?>
 <?= $this->section('customStyles') ?>
 <link rel="stylesheet" href="/css/detailpresensiview.css">
 <?= $this->endSection() ?>
@@ -54,7 +54,7 @@
         </div>
 
 
-        <a href="<?= site_url('dashboardadmin/delete/' . $presensi['id_presensi']); ?>" 
+        <a href="<?= site_url('/RekapitulasiAbsen/delete/' . $presensi['id_presensi']); ?>" 
                 class="btn btn-danger" 
                 onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?');">Hapus Data</a>
 

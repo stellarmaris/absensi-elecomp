@@ -1,6 +1,32 @@
-<?= $this->extend('/layouts/user_layout') ?>
+<?= $this->extend('/Layouts/user_layout') ?>
 <?= $this->section('customStyles') ?>
+<title>Riwayat</title>
 <link rel="stylesheet" href="/css/riwayat.css">
+<style>
+        .pagination a.btn {
+                margin-top: 20px;
+                padding: 8px 10px;
+                font-size: 18px;
+        }
+        .pagination a.btn:hover{
+            color: rgb(0, 7, 62)
+        }
+       @media (max-width: 768px) {
+            .page-link {
+                display: block;
+                color: #130C90; /* Mengubah warna teks */
+                padding: 4px 10px;
+                border: 1px solid #130C90; /* Menambahkan border */
+                border-radius: 4px;
+                text-decoration: none;
+                }
+                 .pagination a.btn {
+                    margin-top: 12px;
+                    padding: 8px 10px;
+                    font-size: 18px;
+                }
+        }
+</style>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
@@ -36,15 +62,25 @@
                     <?php
 
                     foreach ($data_presensi as $index => $v): ?>
+<<<<<<< HEAD
+                        <tr
+                            <?php if ($v['status'] == 'Alpha'): ?>
+=======
                         <tr <?php if ($v['status'] == 'Alpha'): ?>
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
                                 style="background-color: #F9A4A3;"  
                             <?php elseif ($v['status'] == 'Izin'): ?>
                                 style="background-color:  #FFC8B0"  
                             <?php elseif ($v['status'] == 'Sakit'): ?>
                                 style="background-color: #FFE7A8 ;"  
+<<<<<<< HEAD
+                            <?php endif; ?>
+                        >
+=======
                                
                             <?php endif; ?>
                             >
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
                             <td><?= (($currentPage - 1) * $perPage) + ($index + 1) ?></td>
                             <td><?php echo $v['tanggal'] ?></td>
                             <td><?php echo $v['jam_masuk'] ?></td>

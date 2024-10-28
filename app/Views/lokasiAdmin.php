@@ -1,5 +1,6 @@
-<?= $this->extend('/layouts/admin_layout') ?>
+<?= $this->extend('/Layouts/admin_layout') ?>
 <?= $this->section('customStyles') ?>
+<title>Lokasi Pengguna</title>
 <link rel="stylesheet" href="/css/tampilLokasi.css">
 
 <!--include leaflet css-->

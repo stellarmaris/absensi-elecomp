@@ -125,4 +125,8 @@ class Profile extends BaseController
         return redirect()->to('/login');
     }
     
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4

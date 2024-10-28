@@ -41,6 +41,21 @@ class CheckoutController extends BaseController
         $kegiatan = $this->request->getPost('Progress');
         $latitude_checkout = $this->request->getPost('latitude_checkout');
         $longitude_checkout = $this->request->getPost('longitude_checkout');
+        
+        
+        // Check if location (latitude and longitude) is provided
+        if (empty($latitude_checkout) || empty($longitude_checkout)) {
+            return redirect()->back()->with('error', 'Lokasi tidak terdeteksi. Pastikan GPS Anda aktif dan coba lagi.');
+        }
+
+        // Membatasi waktu checkout
+        $jamKeluarTimestamp = strtotime($jam_keluar);
+        $batasAwal = strtotime('16:00');
+        $batasAkhir = strtotime('16:30');
+
+        if ($jamKeluarTimestamp < $batasAwal || $jamKeluarTimestamp > $batasAkhir) {
+            return redirect()->back()->with('error', 'Checkout hanya dapat dilakukan antara jam 16:00 hingga 16:30.');
+        }
 
         //cari data presensi berdasarkan tanggalnya dan id magang untuk mengupdate chekoutnya
         $tanggal = $this->request->getPost('tanggalKeluar');

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+<?= $this->extend('/Layouts/admin_layout') ?>
+=======
 <?= $this->extend('/layouts/admin_layout') ?>
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
 <?= $this->section('customStyles') ?>
 <style>
     .title {
@@ -151,9 +155,16 @@
             <textarea id="alamat" name="alamat" class="form-control custom-font" rows="4" readonly><?= esc($user['alamat']); ?></textarea>
         </div>
         <div class="btn">
+<<<<<<< HEAD
+              <a href="<?= site_url('/user-list') ?>" class="btn btn-primary custom-btn">Kembali</a>
+            <a href="<?= site_url('detail-user/edit-user/' . $user['id_magang']); ?>" class="btn btn-primary custom-btn">Edit Data</a>
+
+          
+=======
             <a href="<?= site_url('detail-user/edit-user/' . $user['id_magang']); ?>" class="btn btn-primary custom-btn">Edit Data</a>
 
             <a href="<?= site_url('dashboardadmin') ?>" class="btn btn-primary custom-btn">Kembali</a>
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
         </div>
 
     </div>

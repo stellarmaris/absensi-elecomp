@@ -1,5 +1,9 @@
 <?= $this->extend('/Layouts/admin_layout') ?>
 <?= $this->section('customStyles') ?>
+<<<<<<< HEAD
+<title>Daftar Pengguna</title>
+=======
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
 <style>
     /* Styling CSS */
     .custom-font {

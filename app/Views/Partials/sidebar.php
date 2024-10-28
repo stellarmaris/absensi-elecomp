@@ -1,9 +1,16 @@
-<div class="sidebar">
-
+<aside class="sidebar">
     <div class="logo">
-        <img src="<?= base_url('/images/Logo.jpeg') ?>" alt="ELECOMP Indonesia">
-        <i class="fa-solid fa-bars"></i>
+        <img src="/images/Logo.jpeg" alt="Elecomp Logo">
     </div>
+<<<<<<< HEAD
+    <ul class="menu">
+        <li><a href="/home"><i class="fas fa-home"></i>Dashboard</a></li>
+        <li><a href="/Profile"><i class="fas fa-user"></i>Profil Pengguna</a></li>
+        <li><a href="/riwayat"><i class="fas fa-clock"></i>Riwayat Absensi</a></li>
+        <li><a href="/HitungNilaiUser"><i class="fa-solid fa-file-invoice"></i>Rekapitulasi Absensi</a></li>
+        <li><a href="/help-support"><i class="fas fa-info-circle"></i>Help & Support</a></li>
+        <li><a href="/checklist"><i class="fa-solid fa-file-invoice"></i>Checklist Piket</a></li>
+=======
 
 
 
@@ -29,29 +36,6 @@
                 <i class="fa-solid fa-circle-info"></i> Help & Support
             </a>
         </li>
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
     </ul>
-    <div class="logout">
-        <a href="<?= base_url('/logout') ?>" class="nav-link">
-            <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
-        </a>
-    </div>
-</div>
-<script>
-    // Function to toggle nav and logout visibility on mobile
-    function toggleMobileMenu() {
-        const nav = document.querySelector('.nav');
-        const logout = document.querySelector('.logout');
-
-        // Toggle the 'show' class on nav and logout
-        nav.classList.toggle('show');
-        logout.classList.toggle('show');
-    }
-
-    // Run the script only on screens less than 768px wide
-    if (window.innerWidth <= 768) {
-        const hamburgerIcon = document.querySelector('.logo i');
-
-        // Add click event listener to the hamburger icon
-        hamburgerIcon.addEventListener('click', toggleMobileMenu);
-    }
-</script>
+</aside>

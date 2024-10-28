@@ -2,8 +2,13 @@
 
 namespace App\Controllers;
 
+<<<<<<< HEAD
+use App\Models\UserModel;
+use App\Models\presensiModel; 
+=======
 use App\Models\UserModel; // Ubah menjadi PascalCase
 use App\Models\PresensiModel; // Ubah menjadi PascalCase
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
 
 class HitungNilai extends BaseController
 {

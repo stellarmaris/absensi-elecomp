@@ -1,5 +1,6 @@
-<?= $this->extend('/layouts/user_layout') ?>
+<?= $this->extend('/Layouts/user_layout') ?>
 <?= $this->section('customStyles') ?>
+<title>Dashboard</title>
 <link rel="stylesheet" href="/css/dashboarduser.css">
 
 <!-- Tambahkan CSS khusus untuk mendisable link -->
@@ -61,10 +62,34 @@
         <a href="/izin-form"  class="btn btn-primary custom-btn <?= $hasPresensi ? 'disabled-link' : '' ?>">TIDAK HADIR</a>
         <div class="right-aligned-text">
             <h1 class="card-title bold-text">TIDAK HADIR</h1>
-            <p class="card-text bold-text">Gunakan "Tidak Hadir" untuk mencatat status cuti atau sakit.</p>
+            <p class="card-text bold-text">Gunakan "Tidak Hadir" untuk mencatat status izin atau sakit.</p>
         </div>
     </div>
 </div>
 
+<<<<<<< HEAD
+<!-- Piket -->
+<div class="card check-in custom-font card-piket">
+    <div class="card-body d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="card-title bold-text">Piket</h1>
+            <p class="card-text bold-text">Gunakan tombol "Piket" untuk mencatat piket Anda dengan tepat.</p>
+        </div>
+        <a href="/piket" class="btn btn-primary custom-btn <?= $hasCheckedin && !$hasCheckedOut && $isHadir ? '' : 'disabled-link' ?>" id="btn-checkout">Piket</a>
+        <script>
+            document.getElementById('btn-piket').addEventListener('click',function(event){
+                var isPending = <?= json_encode($isPending)?>;
 
+                if(isPending){
+                    event.preventDefault();
+                    alert('Statusmu masih pending, kamu tidak bisa melakukan piket. Silahkan hubungi admin untuk verifikasi statusmu');
+                }
+            });
+        </script>
+      
+    </div>
+</div>
+=======
+
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
 <?= $this->endSection() ?>

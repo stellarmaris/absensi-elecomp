@@ -116,7 +116,12 @@
         .input-group button:hover {
             background-color: #0e086e;
         }
+        
+         
      
+<<<<<<< HEAD
+   
+=======
         @media (max-width: 768px) {
             .page-link {
                 display: block;
@@ -130,3 +135,4 @@
         }
           
     
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4

@@ -1,9 +1,17 @@
 <?= $this->extend('/Layouts/admin_layout') ?>
 <?= $this->section('customStyles') ?>
+<<<<<<< HEAD
+<title>Rekapitulasi Absensi</title>
+<link rel="stylesheet" href="/css/rekapitulasi.css">
+<link rel="stylesheet" href="/css/pagination.css">
+<style>
+     .btn-search {
+=======
 <link rel="stylesheet" href="/css/rekapitulasi.css">
 <link rel="stylesheet" href="/css/pagination.css">
 <style>
     .btn-search {
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
         padding: 10px 15px;
         background-color: #130C90;
         color: white;
@@ -18,12 +26,47 @@
         padding: 10px 20px;
         width: 200px;
     }
+<<<<<<< HEAD
+      .btn-warning{
+    background-color:  red; 
+    color: white; 
+    border: none; 
+    text-decoration: none;
+    border-radius: 5px; 
+    padding: 10px 20px; 
+    font-size: 14px;
+    font-weight: bold;  
+  }
+    @media (max-width: 768px) {
+            .page-link {
+                display: block;
+                color: #130C90; /* Mengubah warna teks */
+                padding: 4px 10px;
+                border: 1px solid #130C90; /* Menambahkan border */
+                border-radius: 4px;
+                text-decoration: none;
+                }
+    }
+=======
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
 </style>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
 <!-- ================= ALERT ============= -->
 <?php if (session()->getFlashdata('message')): ?>
+<<<<<<< HEAD
+        <div class="alert alert-success">
+            <?= session()->getFlashdata('message') ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (session()->getFlashdata('error')): ?>
+        <div class="alert alert-danger">
+            <?= session()->getFlashdata('error') ?>
+        </div>
+    <?php endif; ?>
+=======
     <div class="alert alert-success">
         <?= session()->getFlashdata('message') ?>
     </div>
@@ -34,11 +77,25 @@
         <?= session()->getFlashdata('error') ?>
     </div>
 <?php endif; ?>
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
 
 <!-- kartu judul -->
 
 <!-- kartu judul2 -->
 <div class="card title-card">
+<<<<<<< HEAD
+        <h3 class="card-title bold-text">Rekapitulasi Absensi</h3>
+        <div class="card-body">
+            <p class="subtitle-card"><em>Total Rekapitulasi</em></p>
+            <div class="delete">
+                    <form action="<?= site_url('/deleteFoto') ?>" method="post">
+                        <?= csrf_field() ?>
+                        <button type="submit" class="btn btn-delete" onclick="return confirm('Apakah Anda yakin ingin menghapus semua foto minggu lalu?')">Hapus Foto</button>
+                    </form>
+            </div>
+        </div>
+    
+=======
     <h3 class="card-title bold-text">Rekapitulasi Absensi</h3>
     <div class="card-body">
         <p class="subtitle-card"><em>Total Rekapitulasi</em></p>
@@ -50,6 +107,7 @@
         </div>
     </div>
 
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
 </div>
 
 <!--Form filter tanggal -->
@@ -57,13 +115,21 @@
 
 <div class="row mb-2 form-container">
     <div class="filter">
+<<<<<<< HEAD
+        <form action="<?= site_url('/RekapitulasiAbsen') ?>" method="get" class="d-flex" >
+=======
         <form action="<?= site_url('/RekapitulasiAbsen') ?>" method="get" class="d-flex">
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
             <input type="date" id="date" name="tanggal" class="form-control date-picker" value="<?= isset($tanggal_pilih) ? $tanggal_pilih : $tanggal_pilih ?>">
             <button type="submit" class="btn custom-btn">Tampilkan Data</button>
         </form>
     </div>
     <div class="search-form">
+<<<<<<< HEAD
+        <form action="<?= site_url('/RekapitulasiAbsen') ?>" method="get" class="d-flex" >
+=======
         <form action="<?= site_url('/RekapitulasiAbsen') ?>" method="get" class="d-flex">
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
             <input type="text" name="search" id="search" class="form-control" placeholder="Cari Nama ....." value="<?= isset($search) ? $search : '' ?>">
             <button type="submit" class="btn-search">Search</button>
         </form>
@@ -92,6 +158,45 @@
                 </tr>
             <?php else: ?>
                 <?php
+<<<<<<< HEAD
+                    // Nomor urut
+                    $nomor = 0;
+                    foreach ($data_presensi as $k => $v) {
+                        $nomor++;
+                        // Determine the row class based on the status
+                        $rowClass = '';
+                        switch ($v['status']) {
+                            case 'WFO':
+                                $rowClass = 'bg-wfo';
+                                break;
+                            case 'WFH':
+                                $rowClass = 'bg-wfh';
+                                break;
+                            case 'Izin':
+                                $rowClass = 'bg-izin';
+                                break;
+                            case 'Sakit':
+                                $rowClass = 'bg-sakit';
+                                break;
+                            case 'Alpha':
+                                $rowClass = 'bg-alpha';
+                                break;
+                        }
+                ?>
+                <tr class="<?= $rowClass ?>">
+                    <td><?php echo $nomor ?></td>
+                    <td><?php echo $v['tanggal'] ?></td>
+                    <td><?= $v['Nama'] ?></td>
+                    <td><?= $v['jam_masuk'] ?></td>
+                    <td><?= $v['jam_keluar'] ?></td>
+                    <td><?= $v['status'] ?></td>
+                    <td>
+                        <a href="<?= site_url('RekapitulasiAbsen/detail/' . $v['id_presensi']); ?>" class="btn btn-danger">Detail</a>
+                        <a href="#" class="btn btn-warning" onclick="return handleAlpha(<?= $v['id_presensi']; ?>)">Alpha</a>
+                    </td>
+                </tr>
+                <?php }?>
+=======
                 // Nomor urut
                 $nomor = 0;
                 foreach ($data_presensi as $k => $v) {
@@ -131,12 +236,23 @@
 
                     </tr>
                 <?php } ?>
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
             <?php endif; ?>
         </tbody>
 
     </table>
 </div>
 
+<<<<<<< HEAD
+    <!-- Pagination Links -->
+    <?php if ($pager): ?>
+        <div class="pagination">
+            <?= $pager->links('presensi', 'custom') ?>
+
+        </div>
+    <?php endif; ?>
+    <script>
+=======
 <!-- Pagination Links -->
 <?php if ($pager): ?>
     <div class="pagination">
@@ -145,6 +261,7 @@
     </div>
 <?php endif; ?>
 <script>
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
     function handleAlpha(id) {
         // Konfirmasi dengan dialog
         var isConfirmed = confirm('Apakah Anda yakin melakukan alpha pada user?');
@@ -165,6 +282,9 @@
 </script>
 
 
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
 <?= $this->endSection() ?>

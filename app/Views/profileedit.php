@@ -228,7 +228,11 @@
                 <div class="form-group flex-item">
                         <label for="kata_sandi" class="form-label">Kata Sandi</label>
                         <input type="password" id="kata_sandi" name="password" class="form-control">
+<<<<<<< HEAD
+                        <i class="fas fa-eye toggle-password"></i>  
+=======
                         <i class="fas fa-eye toggle-password"></i>           
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
                 </div>
             </div>
 

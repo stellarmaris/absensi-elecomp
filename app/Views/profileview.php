@@ -1,5 +1,6 @@
 <?= $this->extend('/Layouts/user_layout') ?>
 <?= $this->section('customStyles') ?>
+<title>Profile</title>
 <link rel="stylesheet" href="/css/profile.css">
 <?= $this->endSection() ?>
 

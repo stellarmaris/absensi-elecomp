@@ -3,6 +3,7 @@
 }
 
 .card {
+    margin-top: 30px;
   border-radius: 10px;
   margin-bottom: 30px;
   max-width: 100%;
@@ -21,13 +22,17 @@
 
 .box {
   border-radius: 10px;
-  height: 150px;
+  height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   padding: 40px;
+<<<<<<< HEAD
+  width: 220px;
+=======
   width: 180px;
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
 }
 
 .box1 {
@@ -54,6 +59,10 @@
 }
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
 .box p {
   font-size: 30px;
   font-weight: bold;

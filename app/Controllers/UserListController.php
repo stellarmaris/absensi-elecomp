@@ -6,7 +6,11 @@ use App\Models\UserModel;
 
 class UserListController extends BaseController
 {
+<<<<<<< HEAD
+      public function index()
+=======
     public function index()
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
     {
         if (!session()->get('logged_in')) {
             return redirect()->to('/login');
@@ -44,6 +48,8 @@ class UserListController extends BaseController
         return view('user_list', $data);
     }
     
+<<<<<<< HEAD
+=======
     private function getTanggalHariIni(): string
     {
         $hari = date('l');
@@ -78,6 +84,7 @@ class UserListController extends BaseController
 
         return $namaHari[$hari] . ', ' . $tanggal . ' ' . $namaBulan[$bulan] . ' ' . $tahun;
     }
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
     public function detail($id_magang)
     {
         $ModelUser = new UserModel();
@@ -92,7 +99,11 @@ class UserListController extends BaseController
         }
 
         $data['title'] = 'Detail Pengguna';
+<<<<<<< HEAD
+        return view('detailUser', $data);
+=======
         return view('detailuser', $data);
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
     }
 
     public function edit($id)

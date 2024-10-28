@@ -1,5 +1,6 @@
 <?= $this->extend('/Layouts/admin_layout') ?>
 <?= $this->section('customStyles') ?>
+<title>Verifikasi Absensi</title>
 <link rel="stylesheet" href="/css/verifikasi.css">
 <link rel="stylesheet" href="/css/pagination.css">
 <?= $this->endSection() ?>
