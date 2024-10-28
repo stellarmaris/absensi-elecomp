@@ -76,6 +76,9 @@
   width: 48%;
 }
 
+<<<<<<< HEAD
+
+=======
 .password-field {
   margin-bottom: 20px;
   position: relative;
@@ -88,6 +91,7 @@
   transform: translateY(-50%);
   cursor: pointer;
 }
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
 
 
 @media (max-width: 768px) {
@@ -121,6 +125,10 @@
     padding: 15px;
     width: 100%;
   }
+<<<<<<< HEAD
+  
+=======
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
 }
 
 @media (max-width: 480px) {

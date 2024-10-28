@@ -41,7 +41,11 @@ class Home extends BaseController
             'hasPresensi' => $hasPresensi, // Cek apakah ada data presensi
             'hasCheckedOut' => $hasCheckedOut, // Cek apakah sudah check-out
             'hasCheckedin' =>$hasCheckedin,
+<<<<<<< HEAD
+            'isHadir' => $isHadir, // Cek apakah status hadir
+=======
             'isHadir' => $isHadir, // Cek apakah status izin
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
             'isPending'=>$isPending,
         ];
         $data['title'] = 'Dashboard';

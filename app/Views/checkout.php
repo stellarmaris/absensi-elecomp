@@ -1,4 +1,4 @@
-<?= $this->extend('/layouts/user_layout') ?>
+<?= $this->extend('/Layouts/user_layout') ?>
 <?= $this->section('customStyles') ?>
 <link rel="stylesheet" href="/css/checkout.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />

@@ -1,5 +1,9 @@
 <?= $this->extend('/Layouts/admin_layout') ?>
 <?= $this->section('customStyles') ?>
+<<<<<<< HEAD
+<title>Statistik Absensi</title>
+=======
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
 <link rel="stylesheet" href="/css/grafik.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <?= $this->endSection() ?>
@@ -31,7 +35,11 @@
         <!-- === GRAFIK GARIS === -->
        <div class="kartuGaris">
             <h5>Chart Presensi Per Tanggal</h5>
+<<<<<<< HEAD
+                <form action="<?= base_url('/SummaryPresensiController')?>" method="GET">
+=======
                 <form action="<?= base_url('/summary-presensi')?>" method="GET">
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
                     <div class="filterDate">
                         <div class="tglAwal">
                             <label for="start_date">Dari Tanggal:</label>

@@ -1,4 +1,4 @@
-<?= $this->extend('/layouts/user_layout') ?>
+<?= $this->extend('/Layouts/user_layout') ?>
 <?= $this->section('customStyles') ?>
 <link rel="stylesheet" href="/css/dashboard.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
@@ -85,7 +85,10 @@
     <hr>
     <p class="mb-0">Pastikan untuk mengikuti panduan ini agar check-in Anda berhasil. Jika tidak sesuai ketentuan, check-in Anda tidak akan diverifikasi.</p>
 </div>
+<<<<<<< HEAD
+=======
 
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
 
 <form action="/check-in-form" method="POST" enctype="multipart/form-data">
     <div class="group">
@@ -98,6 +101,16 @@
             <div class="input">
                 <input type="time" name="time" id="time" readonly>
             </div>
+        </div>
+    </div>
+     <div class="form-1">
+        <div class="label"><label for="status">Status (WFO/WFH)</label></div>
+        <div class="input">
+            <select name="status" id="status" required>
+                <option value="">Pilih Status</option>
+                <option value="WFO">Work From Office (WFO)</option>
+                <option value="WFH">Work From Home (WFH)</option>
+            </select>
         </div>
     </div>
     <div class="form-1">
@@ -113,7 +126,7 @@
     <div class="form-1">
         <div class="label"><label for="foto">Upload Foto Check In</label></div>
         <div class="input">
-            <input type="file" name="foto" accept=".jpg, .jpeg, .png" required>
+           <input type="file" name="foto" id="foto" accept=".jpg, .jpeg, .png" required >
         </div>
     </div>
     <div class="form-1" hidden>
@@ -199,6 +212,50 @@
 
     // Panggil fungsi getLocation ketika halaman dimuat
     window.onload = getLocation;
+</script>
+
+<!-- ======== KOMPRES FOTO ============= -->
+<script>
+    document.getElementById('foto').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = new Image();
+                img.src = e.target.result;
+
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+
+                    const MAX_WIDTH = 800;  // Tentukan ukuran maksimum
+                    const scaleSize = MAX_WIDTH / img.width;
+
+                    canvas.width = MAX_WIDTH;
+                    canvas.height = img.height * scaleSize;
+
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                    // Kompres gambar dengan kualitas 0.9
+                    canvas.toBlob(function(blob) {
+                        const compressedFile = new File([blob], file.name, {
+                            type: file.type,
+                            lastModified: Date.now()
+                        });
+
+                        // Ganti file asli dengan yang terkompresi
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(compressedFile);
+                        document.getElementById('foto').files = dataTransfer.files;
+                    }, file.type, 0.9);  // Menurunkan kualitas ke 90%
+                }
+            }
+
+            reader.readAsDataURL(file);
+        }
+    });
 </script>
 
 <?= $this->endSection() ?>

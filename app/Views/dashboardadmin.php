@@ -1,5 +1,6 @@
 <?= $this->extend('/Layouts/admin_layout') ?>
 <?= $this->section('customStyles') ?>
+<title><?= $title?></title>
 <link rel="stylesheet" href="/css/dashboardadmin.css">
 <link rel="stylesheet" href="/css/pagination.css">
 <style>
@@ -47,18 +48,78 @@
         <p>ALPHA</p>
         <h1><?= $total_alpha ?></h1>
     </div>
+<<<<<<< HEAD
+=======
 </div>
 
 <div class="box-container">
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
     <div class="box box5">
         <p>TOTAL</p>
         <h1><?= $total_rekap ?></h1>
     </div>
+<<<<<<< HEAD
+    
+=======
+    <div class="box box6">
+        <p>PENGGUNA</p>
+        <h1><?= $total_user ?></h1>
+    </div>
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
+</div>
+
+<div class="box-container">
     <div class="box box6">
         <p>PENGGUNA</p>
         <h1><?= $total_user ?></h1>
     </div>
 </div>
+
+<!-- Tabel User Belum Absen -->
+<!-- kartu judul2 -->
+<div class="card title-card" style="display:flex; justify-content:space-between; align-items:center; margin-top:10px;">
+    <div class="card-body">
+        <h3 class="card-title bold-text">Pengguna yang Belum Absensi</h3>
+        <p><em><?= $tanggal_hari_ini ?></em></p>
+    </div>
+
+</div>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="max-width: 50px; width: 50px;">No</th>
+                <th>Nama</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (empty($belum_absen)): ?>
+                <tr>
+                    <td colspan="3" style="text-align: center;">Semua pengguna sudah absen hari ini.</td>
+                </tr>
+            <?php else: ?>
+                <?php
+                // Nomor urut
+                $nomor = 0;
+                foreach ($belum_absen as $k => $user) {
+                    $nomor++;
+                ?>
+                    <tr>
+                        <td><?php echo $nomor ?></td>
+                        <td><?php echo $user['nama'] ?></td>
+                    </tr>
+                <?php } ?>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>
+<!-- Pagination Links -->
+<?php if ($pager): ?>
+    <div class="pagination">
+        <?= $pager->links('belum_absen', 'custom') ?>
+    </div>
+<?php endif; ?>
+
 
 <!-- kartu judul2 -->
 <div class="card title-card" style="display:flex; justify-content:space-between; align-items:center;">

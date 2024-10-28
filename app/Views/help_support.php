@@ -1,6 +1,10 @@
 <?= $this->extend('/Layouts/user_layout') ?>
 
 <?= $this->section('customStyles') ?>
+<<<<<<< HEAD
+<title>Help & Support</title>
+=======
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
 <link rel="stylesheet" href="/css/profileedit.css">
 <style>
     .help-container {

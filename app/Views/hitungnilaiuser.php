@@ -1,5 +1,9 @@
 <?= $this->extend('/Layouts/user_layout') ?>
 <?= $this->section('customStyles') ?>
+<<<<<<< HEAD
+<title>Rekapitulasi</title>
+=======
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
 <link rel="stylesheet" href="/css/dashboardadmin.css">
 
 <?= $this->endSection() ?>

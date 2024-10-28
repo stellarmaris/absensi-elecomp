@@ -27,9 +27,9 @@ class AuthController extends BaseController
 
             // Check user role
             if ($user['role'] === 'admin') {
-                return redirect()->to('/DashboardAdmin');
+                return redirect()->to('/dashboardadmin');
             } else {
-                return redirect()->to('/Home');
+                return redirect()->to('/home');
             }
         } else {
             // Set flashdata with an error message

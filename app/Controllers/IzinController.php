@@ -5,7 +5,10 @@ namespace App\Controllers;
 use App\Models\presensiModel;
 use App\Models\UserModel;
 use DateTime;
+<<<<<<< HEAD
+=======
 
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
 class IzinController extends BaseController
 {
     public function index()
@@ -29,7 +32,11 @@ class IzinController extends BaseController
         return view('izin_form', $data);
     }
 
+<<<<<<< HEAD
+   public function store()
+=======
     public function store()
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
     {
         $idMagang = session()->get('user_id');
         $startDate = $this->request->getPost('start_date');
@@ -42,8 +49,38 @@ class IzinController extends BaseController
         // Cek apakah semua field diisi
         if (!$startDate || !$endDate || !$time || !$status) {
             return redirect()->back()->withInput()->with('error', 'Semua field harus diisi.');
+<<<<<<< HEAD
+        }
+        
+        // Ambil file yang diupload
+    $file = $this->request->getFile('foto');
+
+    // Cek apakah ada file yang diupload dan apakah ada error
+    if ($file && !$file->isValid()) {
+        // Tangkap error berdasarkan status upload
+        $fileError = $file->getError();
+        
+        // Custom pesan error berdasarkan kode error PHP
+        switch ($fileError) {
+            case UPLOAD_ERR_INI_SIZE:
+            case UPLOAD_ERR_FORM_SIZE:
+                $errorMsg = 'Ukuran file terlalu besar. Maksimal 1MB.';
+                break;
+            case UPLOAD_ERR_NO_FILE:
+                $errorMsg = 'File foto wajib diupload.';
+                break;
+            default:
+                $errorMsg = 'Ada kesalahan saat mengupload file.';
+                break;
         }
 
+        return redirect()->back()->withInput()->with('errors', ['foto' => $errorMsg]);
+    }
+
+=======
+        }
+
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
         // Definisikan aturan validasi
         $validationRules = [
             'foto' => [

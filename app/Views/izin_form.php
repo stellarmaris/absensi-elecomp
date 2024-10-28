@@ -1,4 +1,4 @@
-<?= $this->extend('/layouts/user_layout') ?>
+<?= $this->extend('/Layouts/user_layout') ?>
 <?= $this->section('customStyles') ?>
 <link rel="stylesheet" href="/css/dashboard.css">
 <style>
@@ -84,7 +84,12 @@
 
 <form action="<?= base_url('/izin-form') ?>" method="post" enctype="multipart/form-data">
     <?= csrf_field() ?>
+<<<<<<< HEAD
+<div class="group">
+
+=======
     <div class="group">
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
         <div class="form">
             <div class="label"><label for="start_date">Tanggal Mulai</label></div>
             <div class="input">
@@ -99,6 +104,10 @@
         </div>
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
     </div>
     <div class="form">
         <div class="label"><label for="time">Waktu Perizinan</label></div>
@@ -120,10 +129,17 @@
     <div class="form-1">
         <div class="label"><label for="foto">Foto Bukti</label></div>
         <div class="input">
+<<<<<<< HEAD
+                      <input type="file" name="foto" id="foto" accept=".jpg, .jpeg, .png" required >
+        </div>
+    </div>
+        <div class="form-1">
+=======
             <input type="file" name="foto" id="foto" accept=".jpg, .jpeg, .png" required>
         </div>
     </div>
     <div class="form-1">
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
         <div class="label"><label for="kegiatan">Keterangan Perizinan</label></div>
         <div class="input">
             <input type="text" name="kegiatan" id="kegiatan" required style="height:100px">
@@ -183,5 +199,53 @@
                 break;
         }
     }
+<<<<<<< HEAD
+</script>
+
+
+<!-- ======== KOMPRES FOTO ============= -->
+<script>
+    document.getElementById('foto').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = new Image();
+                img.src = e.target.result;
+
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+
+                    const MAX_WIDTH = 800;  // Tentukan ukuran maksimum
+                    const scaleSize = MAX_WIDTH / img.width;
+
+                    canvas.width = MAX_WIDTH;
+                    canvas.height = img.height * scaleSize;
+
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                    // Kompres gambar dengan kualitas 0.9
+                    canvas.toBlob(function(blob) {
+                        const compressedFile = new File([blob], file.name, {
+                            type: file.type,
+                            lastModified: Date.now()
+                        });
+
+                        // Ganti file asli dengan yang terkompresi
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(compressedFile);
+                        document.getElementById('foto').files = dataTransfer.files;
+                    }, file.type, 0.9);  // Menurunkan kualitas ke 90%
+                }
+            }
+
+            reader.readAsDataURL(file);
+        }
+    });
+=======
+>>>>>>> c00dc2e007764257bf9f4dc4c27ecae3de1427a4
 </script>
 <?= $this->endSection() ?>
